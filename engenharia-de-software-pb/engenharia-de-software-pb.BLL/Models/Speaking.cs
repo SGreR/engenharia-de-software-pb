@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,10 +9,15 @@ namespace engenharia_de_software_pb.BLL.Models
 {
     public class Speaking : Habilidade
     {
+        [Range(0, 5)]
         public int ProductionAndFluencyGrade { get; set; } = 0;
+        [Range(0, 5)]
         public int SpokenInteractionGrade { get; set; } = 0;
+        [Range(0, 5)]
         public int LanguageRangeGrade { get; set; } = 0;
+        [Range(0, 5)]
         public int AccuracyGrade { get; set; } = 0;
+        [Range(0, 5)]
         public int L2Use { get; set; } = 0;
         public double FinalScore => ObterMedia();
 
