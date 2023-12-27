@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/engenharia-de-software-pb/.vs
+/engenharia-de-software-pb/engenharia-de-software-pb.BLL/bin/Debug/net6.0
+/engenharia-de-software-pb/engenharia-de-software-pb.BLL/obj
+/engenharia-de-software-pb/engenharia-de-software-pb.client/obj/Debug
+/engenharia-de-software-pb/engenharia-de-software-pb.Data/bin/Debug/net6.0
+/engenharia-de-software-pb/engenharia-de-software-pb.Data/obj
+/engenharia-de-software-pb/engenharia-de-software-pb.Server/bin/Debug/net6.0
+/engenharia-de-software-pb/engenharia-de-software-pb.Server/obj
