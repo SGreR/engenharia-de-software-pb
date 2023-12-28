@@ -3,46 +3,98 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using engenharia_de_software_pb.BLL.Factories;
 using engenharia_de_software_pb.BLL.Models;
+using engenharia_de_software_pb.Data.DAOs;
 using engenharia_de_software_pb.Data.Interfaces;
 
 namespace engenharia_de_software_pb.Data.Repositories
 {
     public class AlunoRepository : IRepository<Aluno>
     {
-        public int Create(Aluno entity)
+        private readonly AlunosDao _alunosDao;
+        private readonly NotasRepository _notasRepository;
+
+        public AlunoRepository(AlunosDao alunosDao, NotasRepository notasRepository)
         {
-            throw new NotImplementedException();
+            _alunosDao = alunosDao;
+            _notasRepository = notasRepository;
+        }
+        public async Task<Aluno> Create(Aluno entity)
+        {
+            try
+            {
+                await _alunosDao.Add(entity);
+                return entity;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+                return entity;
+            }
+            
         }
 
-        public bool Delete(Aluno entity)
+        public async Task<bool> Delete(Aluno entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _alunosDao.Delete(entity.Id);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            
         }
 
-        public bool DeleteById(int id)
+        public async Task<IEnumerable<Aluno>> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _alunosDao.GetAll();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Enumerable.Empty<Aluno>();
+            }
         }
 
-        public IEnumerable<Aluno> GetAll()
+        public async Task<Aluno?> GetById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var aluno = await _alunosDao.GetById(id);
+                if (aluno != null)
+                {
+                    var notasDoAluno = await _notasRepository.GetByAlunoId(id);
+                    aluno.PopularNotas(notasDoAluno);
+                }
+                return aluno;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
-        public Aluno? GetById(int id)
+        public async Task<Aluno> Update(Aluno entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _alunosDao.Update(entity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return entity;
+            }
         }
 
-        public Aluno? GetById(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Aluno Update(Aluno entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

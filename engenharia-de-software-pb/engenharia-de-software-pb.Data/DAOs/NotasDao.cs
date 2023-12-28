@@ -5,34 +5,72 @@ using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
+using engenharia_de_software_pb.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace engenharia_de_software_pb.Data.DAOs
 {
-    internal class NotasDao : IDao<Notas>
+    public class NotasDao : IDao<Notas>
     {
-        public void Add(Notas entity)
+        private readonly ApplicationDbContext _context;
+
+        public NotasDao(ApplicationDbContext applicationDbContext)
         {
-            throw new NotImplementedException();
+            _context = applicationDbContext;
+        }
+        public async Task<Notas> Add(Notas entity)
+        {
+            _context.Add(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            _context.Remove(id);
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Notas> GetAll()
+        public async Task<IEnumerable<Notas>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Notas.ToListAsync();
         }
 
-        public Notas GetById(int id)
+        public async Task<IEnumerable<Notas>> GetMultipleByIds(IEnumerable<int> idList)
         {
-            throw new NotImplementedException();
+            var notas = new List<Notas>();
+            foreach(var id in idList)
+            {
+                var nota = await GetById(id);
+                notas.Add(nota);
+            }
+            return notas;
         }
 
-        public void Update(Notas entity)
+        public async Task<IEnumerable<Notas?>> GetByAlunoId(int id)
         {
-            throw new NotImplementedException();
+            var notasDoAlunoIds = GetAll().Result.Where(n => n.AlunoId == id).Select(n => n.Id);
+            return await GetMultipleByIds(notasDoAlunoIds);
+        }
+
+        public async Task<Notas?> GetById(int id)
+        {
+            var notas = await _context.Notas
+                .Include(n => n.Reading)
+                .Include(n => n.Writing)
+                .Include(n => n.Listening)
+                .Include(n => n.Grammar)
+                .Include(n => n.Speaking)
+                .Include(n => n.ClassPerformance)
+                .FirstOrDefaultAsync(n => n.Id == id);
+            return notas;
+        }
+
+        public async Task<Notas> Update(Notas entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

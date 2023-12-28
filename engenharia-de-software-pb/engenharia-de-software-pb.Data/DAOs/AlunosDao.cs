@@ -5,34 +5,48 @@ using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace engenharia_de_software_pb.Data.DAOs
 {
     public class AlunosDao : IDao<Aluno>
     {
-        public void Add(Aluno entity)
+        private readonly ApplicationDbContext _context;
+
+        public AlunosDao(ApplicationDbContext applicationDbContext)
         {
-            throw new NotImplementedException();
+            _context = applicationDbContext;
         }
 
-        public void Delete(int id)
+        public async Task<Aluno> Add(Aluno entity)
         {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
 
-        public IEnumerable<Aluno> GetAll()
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            _context.Remove(id);
+            await _context.SaveChangesAsync();
         }
 
-        public Aluno GetById(int id)
+        public async Task<IEnumerable<Aluno>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _context.Alunos.ToListAsync();
         }
 
-        public void Update(Aluno entity)
+        public async Task<Aluno?> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Alunos
+                .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<Aluno> Update(Aluno entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
+using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,33 +11,26 @@ namespace engenharia_de_software_pb.Server.Controllers
     [ApiController]
     public class NotasController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly NotasRepository _notasRepository;
 
-        public NotasController(ApplicationDbContext context)
+        public NotasController(NotasRepository notasRepository)
         {
-            _context = context;
+            _notasRepository = notasRepository;
         }
 
         // GET: api/Notas
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Notas>>> GetNotas()
         {
-            var notas = _context.Notas.ToListAsync();
-            return await notas;
+            var notas = await _notasRepository.GetAll();
+            return notas.ToList();
         }
 
         // GET: api/Notas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Notas>> GetNotas(int id)
         {
-            var notas = await _context.Notas
-                .Include(n => n.Reading)
-                .Include(n => n.Writing)
-                .Include(n => n.Listening)
-                .Include(n => n.Grammar)
-                .Include(n => n.Speaking)
-                .Include(n => n.ClassPerformance)
-                .FirstOrDefaultAsync(n => n.Id == id);
+            var notas = await _notasRepository.GetById(id);
 
             if (notas == null)
             {
@@ -50,9 +44,7 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
-            _context.Notas.Add(notas);
-            await _context.SaveChangesAsync();
-
+            notas = await _notasRepository.Create(notas);
             return CreatedAtAction("GetNotas", new { id = notas.Id }, notas);
         }
 
@@ -65,11 +57,9 @@ namespace engenharia_de_software_pb.Server.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(notas).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _notasRepository.Update(notas);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,21 +80,20 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNotas(int id)
         {
-            var notas = await _context.Notas.FindAsync(id);
+            var notas = await _notasRepository.GetById(id);
             if (notas == null)
             {
                 return NotFound();
             }
 
-            _context.Notas.Remove(notas);
-            await _context.SaveChangesAsync();
+            await _notasRepository.Delete(notas);
 
             return NoContent();
         }
 
         private bool NotasExists(int id)
         {
-            return _context.Notas.Any(e => e.Id == id);
+            return _notasRepository.GetById(id).Result != null;
         }
     }
 }

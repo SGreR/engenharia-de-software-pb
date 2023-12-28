@@ -1,5 +1,6 @@
 ﻿using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
+using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,43 +10,41 @@ namespace engenharia_de_software_pb.Server.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AlunosController : ControllerBase
-    {
-        private readonly ApplicationDbContext _context; 
+    { 
+        private readonly AlunoRepository _alunosRepository;
 
-        public AlunosController(ApplicationDbContext context)
+        public AlunosController(AlunoRepository alunosRepository)
         {
-            _context = context;
+            _alunosRepository = alunosRepository;
         }
 
         // GET: api/Alunos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Aluno>>> GetAlunos()
         {
-            var alunos = _context.Alunos.ToListAsync();
-            return await alunos;
+            var alunos = await _alunosRepository.GetAll();
+            return alunos.ToList();
         }
 
         // GET: api/Alunos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Aluno>> GetAluno(int id)
         {
-            var alunos = await _context.Alunos.FindAsync(id);
+            var aluno = await _alunosRepository.GetById(id);
 
-            if (alunos == null)
+            if (aluno == null)
             {
                 return NotFound();
             }
 
-            return alunos;
+            return aluno;
         }
 
         // POST: api/Alunos
         [HttpPost]
         public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
         {
-            _context.Alunos.Add(aluno);
-            await _context.SaveChangesAsync();
-
+            aluno = await _alunosRepository.Create(aluno);
             return CreatedAtAction("GetAlunos", new { id = aluno.Id }, aluno);
         }
 
@@ -58,11 +57,9 @@ namespace engenharia_de_software_pb.Server.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(aluno).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _alunosRepository.Update(aluno);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -83,21 +80,20 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAluno(int id)
         {
-            var aluno = await _context.Alunos.FindAsync(id);
+            var aluno = await _alunosRepository.GetById(id);
             if (aluno == null)
             {
                 return NotFound();
             }
 
-            _context.Alunos.Remove(aluno);
-            await _context.SaveChangesAsync();
+            await _alunosRepository.Delete(aluno);
 
             return NoContent();
         }
 
         private bool AlunoExists(int id)
         {
-            return _context.Alunos.Any(e => e.Id == id);
+            return _alunosRepository.GetById(id).Result != null;
         }
     }
 }

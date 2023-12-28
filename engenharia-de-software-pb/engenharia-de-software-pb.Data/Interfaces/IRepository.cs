@@ -8,12 +8,10 @@ namespace engenharia_de_software_pb.Data.Interfaces
 {
     public interface IRepository<T>
     {
-        public IEnumerable<T> GetAll();
-        public T? GetById(int id);
-        public T? GetById(string id);
-        public int Create(T entity);
-        public T Update(T entity);
-        public bool Delete(T entity);
-        public bool DeleteById(int id);
+        public Task<IEnumerable<T>> GetAll();
+        public Task<T?> GetById(int id);
+        public Task<T> Create(T entity);
+        public Task<T> Update(T entity);
+        public Task<bool> Delete(T entity);
     }
 }

@@ -1,10 +1,16 @@
 using engenharia_de_software_pb.Data;
+using engenharia_de_software_pb.Data.DAOs;
+using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+builder.Services.AddScoped<AlunosDao, AlunosDao>();
+builder.Services.AddScoped<NotasDao, NotasDao>();
+builder.Services.AddScoped<AlunoRepository, AlunoRepository>();
+builder.Services.AddScoped<NotasRepository, NotasRepository>();
 
 // Add services to the container.
 
