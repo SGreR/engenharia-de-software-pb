@@ -1,9 +1,52 @@
-﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
+﻿/* App.css */
+
+#root {
+    display: flex;
+    padding: 0;
+    margin-top: 90px;
+    flex: 1;
+    width: 100%;
+    justify-content: center;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
     text-align: center;
 }
+
+nav {
+    margin-top: 10px;
+}
+
+    nav ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    nav li {
+        display: inline;
+        margin-right: 10px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
 
 tr:nth-child(even) {
     background: #F2F2F2;
@@ -16,4 +59,12 @@ tr:nth-child(odd) {
 th, td {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+.listContainer {
+    display: flex;
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    flex-direction: column;
 }

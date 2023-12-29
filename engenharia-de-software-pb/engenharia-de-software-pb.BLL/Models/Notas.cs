@@ -22,16 +22,20 @@ namespace engenharia_de_software_pb.BLL.Models
         public NotaSimples? Grammar { get; set; } = new NotaSimples();
         public Speaking? Speaking { get; set; } = new Speaking();
         public ClassPerformance? ClassPerformance { get; set; } = new ClassPerformance();
-
-
-        public double ObterMediaPorHabilidade()
-        {
-            return 0.0;
-        }
+        public double MediaFinal => ObterMediaFinal();
 
         public double ObterMediaFinal()
         {
-            return 0.0;
+            double[] notas = new double[]{
+                Reading.Media,
+                Writing.Media,
+                Listening.Media,
+                Grammar.Media,
+                Speaking.Media,
+                ClassPerformance.Media
+            };
+            var media = Math.Round(notas.Average() * 10,2);
+            return media;
         }
 
     }

@@ -33,7 +33,15 @@ namespace engenharia_de_software_pb.Data.DAOs
 
         public async Task<IEnumerable<Notas>> GetAll()
         {
-            return await _context.Notas.ToListAsync();
+            return await _context.Notas
+                .Include(n => n.Aluno)
+                .Include(n => n.Reading)
+                .Include(n => n.Writing)
+                .Include(n => n.Listening)
+                .Include(n => n.Grammar)
+                .Include(n => n.Speaking)
+                .Include(n => n.ClassPerformance)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Notas>> GetMultipleByIds(IEnumerable<int> idList)

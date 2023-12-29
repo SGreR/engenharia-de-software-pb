@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace engenharia_de_software_pb.BLL.Models
         public int AccuracyGrade { get; set; } = 0;
         [Range(0, 5)]
         public int L2Use { get; set; } = 0;
-        public double FinalScore => ObterMedia();
+        public double Media => ObterMedia();
 
         protected override double ObterMedia()
         {
@@ -28,7 +29,7 @@ namespace engenharia_de_software_pb.BLL.Models
             var multiplier = (5 - L2Use) * 0.15;
             notaFinal = notaFinal - (notaFinal * multiplier);
  
-            return notaFinal;
+            return notaFinal / 10;
         }
     }
 }

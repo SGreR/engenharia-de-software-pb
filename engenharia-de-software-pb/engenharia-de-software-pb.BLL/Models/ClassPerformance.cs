@@ -17,12 +17,12 @@ namespace engenharia_de_software_pb.BLL.Models
         public int ParticipationGrade { get; set; } = 0;
         [Range(0, 5)]
         public int BehaviorGrade { get; set; } = 0; 
-        public double FinalScore => ObterMedia();
+        public double Media => ObterMedia();
 
         protected override double ObterMedia()
         {
             var notas = new int[] { PresenceGrade, HomeworkGrade, ParticipationGrade, BehaviorGrade };
-            double media = notas.Sum() * 5;
+            double media = notas.Sum() / 2;
             return media;
         }
     }

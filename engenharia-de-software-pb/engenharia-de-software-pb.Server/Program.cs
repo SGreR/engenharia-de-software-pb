@@ -11,6 +11,16 @@ builder.Services.AddScoped<AlunosDao, AlunosDao>();
 builder.Services.AddScoped<NotasDao, NotasDao>();
 builder.Services.AddScoped<AlunoRepository, AlunoRepository>();
 builder.Services.AddScoped<NotasRepository, NotasRepository>();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowAnyOrigin();
+    });
+});
 
 // Add services to the container.
 
@@ -25,6 +35,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCors();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
