@@ -64,6 +64,7 @@ namespace engenharia_de_software_pb.Data.DAOs
         public async Task<Notas?> GetById(int id)
         {
             var notas = await _context.Notas
+                .Include(n => n.Aluno)
                 .Include(n => n.Reading)
                 .Include(n => n.Writing)
                 .Include(n => n.Listening)

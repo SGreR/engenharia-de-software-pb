@@ -88,33 +88,37 @@ export default function NotasDisplay({ notas }) {
                     <h3>Reading</h3>
                     {editing ? (
                         <div>
-                            <label>
-                                Primeira Nota:
-                                <input
-                                    type="text"
-                                    value={grades.reading.primeiraNota}
-                                    onChange={(e) =>
-                                        handleInputChange('reading', 'primeiraNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Segunda Nota:
-                                <input
-                                    type="text"
-                                    value={grades.reading.segundaNota}
-                                    onChange={(e) =>
-                                        handleInputChange('reading', 'segundaNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.reading.media}</p>
+                            <div>
+                                <label>
+                                    Primeira Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.reading.primeiraNota}
+                                        onChange={(e) =>
+                                            handleInputChange('reading', 'primeiraNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Segunda Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.reading.segundaNota}
+                                        onChange={(e) =>
+                                            handleInputChange('reading', 'segundaNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <h3>Media: {grades.reading.media}</h3>
                         </div>
                     ) : (
                         <div>
                             <p>Primeira nota: {grades.reading.primeiraNota}</p>
                             <p>Segunda nota: {grades.reading.segundaNota}</p>
-                            <p>Media: {grades.reading.media}</p>
+                            <h3>Media: {grades.reading.media}</h3>
                         </div>
                     )}
                 </div>
@@ -122,33 +126,37 @@ export default function NotasDisplay({ notas }) {
                     <h3>Writing</h3>
                     {editing ? (
                         <div>
-                            <label>
-                                Primeira Nota:
-                                <input
-                                    type="text"
-                                    value={grades.writing.primeiraNota}
-                                    onChange={(e) =>
-                                        handleInputChange('writing', 'primeiraNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Segunda Nota:
-                                <input
-                                    type="text"
-                                    value={grades.writing.segundaNota}
-                                    onChange={(e) =>
-                                        handleInputChange('writing', 'segundaNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.writing.media}</p>
+                            <div>
+                                <label>
+                                    Primeira Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.writing.primeiraNota}
+                                        onChange={(e) =>
+                                            handleInputChange('writing', 'primeiraNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Segunda Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.writing.segundaNota}
+                                        onChange={(e) =>
+                                            handleInputChange('writing', 'segundaNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <h3>Media: {grades.writing.media}</h3>
                         </div>
                     ) : (
                         <div>
                             <p>Primeira nota: {grades.writing.primeiraNota}</p>
                             <p>Segunda nota: {grades.writing.segundaNota}</p>
-                            <p>Media: {grades.writing.media}</p>
+                            <h3>Media: {grades.writing.media}</h3>
                         </div>
                     )}
                 </div>
@@ -159,33 +167,38 @@ export default function NotasDisplay({ notas }) {
                     <h3>Listening</h3>
                     {editing ? (
                         <div>
-                            <label>
-                                Primeira Nota:
-                                <input
-                                    type="text"
-                                    value={grades.listening.primeiraNota}
-                                    onChange={(e) =>
-                                        handleInputChange('listening', 'primeiraNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Segunda Nota:
-                                <input
-                                    type="text"
-                                    value={grades.listening.segundaNota}
-                                    onChange={(e) =>
-                                        handleInputChange('listening', 'segundaNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.listening.media}</p>
+                            <div>
+                                <label>
+                                    Primeira Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.listening.primeiraNota}
+                                        onChange={(e) =>
+                                            handleInputChange('listening', 'primeiraNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Segunda Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.listening.segundaNota}
+                                        onChange={(e) =>
+                                            handleInputChange('listening', 'segundaNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+
+                            <h3>Media: {grades.listening.media}</h3>
                         </div>
                     ) : (
                         <div>
                             <p>Primeira nota: {grades.listening.primeiraNota}</p>
                             <p>Segunda nota: {grades.listening.segundaNota}</p>
-                            <p>Media: {grades.listening.media}</p>
+                            <h3>Media: {grades.listening.media}</h3>
                         </div>
                     )}
                 </div>
@@ -193,33 +206,37 @@ export default function NotasDisplay({ notas }) {
                     <h3>Grammar</h3>
                     {editing ? (
                         <div>
-                            <label>
-                                Primeira Nota:
-                                <input
-                                    type="text"
-                                    value={grades.grammar.primeiraNota}
-                                    onChange={(e) =>
-                                        handleInputChange('grammar', 'primeiraNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Segunda Nota:
-                                <input
-                                    type="text"
-                                    value={grades.grammar.segundaNota}
-                                    onChange={(e) =>
-                                        handleInputChange('grammar', 'segundaNota', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.grammar.media}</p>
+                            <div>
+                                <label>
+                                    Primeira Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.grammar.primeiraNota}
+                                        onChange={(e) =>
+                                            handleInputChange('grammar', 'primeiraNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Segunda Nota:
+                                    <input
+                                        type="text"
+                                        value={grades.grammar.segundaNota}
+                                        onChange={(e) =>
+                                            handleInputChange('grammar', 'segundaNota', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <h3>Media: {grades.grammar.media}</h3>
                         </div>
                     ) : (
                         <div>
                             <p>Primeira nota: {grades.grammar.primeiraNota}</p>
                             <p>Segunda nota: {grades.grammar.segundaNota}</p>
-                            <p>Media: {grades.grammar.media}</p>
+                            <h3>Media: {grades.grammar.media}</h3>
                         </div>
                     )}
                 </div>
@@ -230,57 +247,68 @@ export default function NotasDisplay({ notas }) {
                     <h3>Speaking</h3>
                     {editing ? (
                         <div>
-                            <label>
-                                Production and Fluency:
-                                <input
-                                    type="text"
-                                    value={grades.speaking.productionAndFluencyGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('speaking', 'productionAndFluencyGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Spoken Interaction:
-                                <input
-                                    type="text"
-                                    value={grades.speaking.spokenInteractionGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('speaking', 'spokenInteractionGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Spoken Interaction:
-                                <input
-                                    type="text"
-                                    value={grades.speaking.languageRangeGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('speaking', 'languageRangeGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Spoken Interaction:
-                                <input
-                                    type="text"
-                                    value={grades.speaking.accuracyGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('speaking', 'accuracyGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Spoken Interaction:
-                                <input
-                                    type="text"
-                                    value={grades.speaking.l2Use}
-                                    onChange={(e) =>
-                                        handleInputChange('speaking', 'l2Use', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.speaking.media}</p>
+                            <div>
+                                <label>
+                                    Production and Fluency:
+                                    <input
+                                        type="text"
+                                        value={grades.speaking.productionAndFluencyGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('speaking', 'productionAndFluencyGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Spoken Interaction:
+                                    <input
+                                        type="text"
+                                        value={grades.speaking.spokenInteractionGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('speaking', 'spokenInteractionGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Spoken Interaction:
+                                    <input
+                                        type="text"
+                                        value={grades.speaking.languageRangeGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('speaking', 'languageRangeGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Spoken Interaction:
+                                    <input
+                                        type="text"
+                                        value={grades.speaking.accuracyGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('speaking', 'accuracyGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Spoken Interaction:
+                                    <input
+                                        type="text"
+                                        value={grades.speaking.l2Use}
+                                        onChange={(e) =>
+                                            handleInputChange('speaking', 'l2Use', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+
+                            <h3>Media: {grades.speaking.media}</h3>
                         </div>
                     ) : (
                         <div>
@@ -289,54 +317,62 @@ export default function NotasDisplay({ notas }) {
                             <p>Language Range: {grades.speaking.languageRangeGrade}</p>
                             <p>Accuracy: {grades.speaking.accuracyGrade}</p>
                             <p>L2 Use: {grades.speaking.l2Use}</p>
-                            <p>Media: {grades.speaking.media}</p>
+                            <h3>Media: {grades.speaking.media}</h3>
                         </div>
                     )}
                 </div>
                 <div>
                     <h3>Class Perfomance</h3>{editing ? (
                         <div>
-                            <label>
-                                Presence:
-                                <input
-                                    type="text"
-                                    value={grades.classPerformance.presenceGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('classPerformance', 'presenceGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Homework:
-                                <input
-                                    type="text"
-                                    value={grades.classPerformance.homeworkGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('classPerformance', 'homeworkGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Participation:
-                                <input
-                                    type="text"
-                                    value={grades.classPerformance.participationGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('classPerformance', 'participationGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <label>
-                                Behavior:
-                                <input
-                                    type="text"
-                                    value={grades.classPerformance.behaviorGrade}
-                                    onChange={(e) =>
-                                        handleInputChange('classPerformance', 'behaviorGrade', e.target.value)
-                                    }
-                                />
-                            </label>
-                            <p>Media: {grades.classPerformance.media}</p>
+                            <div>
+                                <label>
+                                    Presence:
+                                    <input
+                                        type="text"
+                                        value={grades.classPerformance.presenceGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('classPerformance', 'presenceGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Homework:
+                                    <input
+                                        type="text"
+                                        value={grades.classPerformance.homeworkGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('classPerformance', 'homeworkGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Participation:
+                                    <input
+                                        type="text"
+                                        value={grades.classPerformance.participationGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('classPerformance', 'participationGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    Behavior:
+                                    <input
+                                        type="text"
+                                        value={grades.classPerformance.behaviorGrade}
+                                        onChange={(e) =>
+                                            handleInputChange('classPerformance', 'behaviorGrade', e.target.value)
+                                        }
+                                    />
+                                </label>
+                            </div>
+                            <h3>Media: {grades.classPerformance.media}</h3>
                         </div>
                     ) : (
                         <div>
@@ -344,7 +380,7 @@ export default function NotasDisplay({ notas }) {
                             <p>Homework: {grades.classPerformance.homeworkGrade}</p>
                             <p>Participation: {grades.classPerformance.participationGrade}</p>
                             <p>Behavior: {grades.classPerformance.behaviorGrade}</p>
-                            <p>Media: {grades.classPerformance.media}</p>
+                            <h3>Media: {grades.classPerformance.media}</h3>
                         </div>
                     )}
                 </div>

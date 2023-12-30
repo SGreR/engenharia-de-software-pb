@@ -25,6 +25,8 @@ export default function NotasDetailPage() {
                 : (
                     <div>
                         <p>Id: {id}</p>
+                        <p>Aluno: {notas.aluno.name}</p>
+                        <p>Teste: {notas.numeroTeste}</p>
                         <NotasDisplay notas={ notas } />
                     </div>
                 )}
