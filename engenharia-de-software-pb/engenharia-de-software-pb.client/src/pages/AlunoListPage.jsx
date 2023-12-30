@@ -23,7 +23,7 @@ const AlunoListPage = () => {
     }, []);
 
     return (
-        <div className="listContainer">
+        <div>
             <h1>Lista de Alunos</h1>
             <Table hoverRow stripe={'odd'} stickyHeader>
                 <TableHead>

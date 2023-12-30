@@ -73,7 +73,7 @@ namespace engenharia_de_software_pb.Server.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // DELETE: api/Alunos/5

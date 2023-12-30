@@ -12,7 +12,9 @@ const App = () => {
     return (
         <BrowserRouter>
             <Header />
-            <Router />
+            <div className="content">
+                <Router />
+            </div>
         </BrowserRouter>
     );
 };

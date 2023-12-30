@@ -73,7 +73,7 @@ namespace engenharia_de_software_pb.Server.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // DELETE: api/Notas/5
@@ -88,7 +88,7 @@ namespace engenharia_de_software_pb.Server.Controllers
 
             await _notasRepository.Delete(notas);
 
-            return NoContent();
+            return Ok();
         }
 
         private bool NotasExists(int id)

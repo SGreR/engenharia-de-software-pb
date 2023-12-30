@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Table from '@mui/joy/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import '../App.css'
+import '../App.css';
+import NotasList from '../components/NotasList';
 
-const NotasListPage = () => {
+export default function NotasListPage() {
     const [notas, setNotas] = useState([]);
 
     useEffect(() => {
@@ -23,40 +19,9 @@ const NotasListPage = () => {
     }, []);
 
     return (
-        <div className="listContainer">
+        <div>
             <h1>Notas</h1>
-            <Table hoverRow stripe={'odd'} stickyHeader>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>ID</TableCell>
-                        <TableCell>Aluno</TableCell>
-                        <TableCell>Reading</TableCell>
-                        <TableCell>Writing</TableCell>
-                        <TableCell>Listening</TableCell>
-                        <TableCell>Grammar</TableCell>
-                        <TableCell>Speaking</TableCell>
-                        <TableCell>Class Performance</TableCell>
-                        <TableCell>Media Final</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {notas.map((nota) => (
-                        <TableRow key={nota.id}>
-                            <TableCell>{nota.id}</TableCell>
-                            <TableCell>{nota.aluno.name}</TableCell>
-                            <TableCell>{nota.reading.media}</TableCell>
-                            <TableCell>{nota.writing.media}</TableCell>
-                            <TableCell>{nota.listening.media}</TableCell>
-                            <TableCell>{nota.grammar.media}</TableCell>
-                            <TableCell>{nota.speaking.media}</TableCell>
-                            <TableCell>{nota.classPerformance.media}</TableCell>
-                            <TableCell>{nota.mediaFinal}%</TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
+            <NotasList notasList={notas}/>
         </div>
     );
-};
-
-export default NotasListPage;
+}
