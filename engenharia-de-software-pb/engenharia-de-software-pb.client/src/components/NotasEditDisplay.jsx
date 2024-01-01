@@ -19,7 +19,9 @@ export default function NotasDisplay({ notas, onChange }) {
         setGrades((prevData) => ({
             ...prevData,
             ['aluno']: {
-                ['name']:name
+                ...prevData['aluno'],
+                ['id']: value,
+                ['name']: name
             },
             ['alunoId']: value
         }));
