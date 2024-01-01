@@ -12,7 +12,7 @@ namespace engenharia_de_software_pb.BLL.Models
     {
         public int Id { get; set; }
 
-        public int NotasId { get; set; }
+        public int NotasId { get; set; } = 0;
         [ForeignKey("NotasId")]
         public Notas? Notas { get; set; }
 

@@ -7,36 +7,36 @@ const NotasCreatePage = () => {
     
     const navigate = useNavigate();
     const [notasData, setNotasData] = useState({
-        "id": 0,
         "alunoId": 0,
+        "numeroTeste": 1,
         "reading": {
-            "primeiraNota": "",
-            "segundaNota": ""
+            "primeiraNota": 0.0,
+            "segundaNota": 0.0
         },
         "writing": {
-            "primeiraNota": "",
-            "segundaNota": ""
+            "primeiraNota": 0.0,
+            "segundaNota": 0.0
         },
         "listening": {
-            "primeiraNota": "",
-            "segundaNota": ""
+            "primeiraNota": 0.0,
+            "segundaNota": 0.0
         },
         "grammar": {
-            "primeiraNota": "",
-            "segundaNota": ""
+            "primeiraNota": 0.0,
+            "segundaNota": 0.0
         },
         "speaking": {
-            "productionAndFluencyGrade": "",
-            "spokenInteractionGrade": "",
-            "languageRangeGrade": "",
-            "accuracyGrade": "",
-            "l2Use": ""
+            "productionAndFluencyGrade": 0,
+            "spokenInteractionGrade": 0,
+            "languageRangeGrade": 0,
+            "accuracyGrade": 0,
+            "l2Use": 0
         },
         "classPerformance": {
-            "presenceGrade": "",
-            "homeworkGrade": "",
-            "participationGrade": "",
-            "behaviorGrade": ""
+            "presenceGrade": 0,
+            "homeworkGrade": 0,
+            "participationGrade": 0,
+            "behaviorGrade": 0
         }
     });
 
@@ -52,7 +52,7 @@ const NotasCreatePage = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({"id": 0,"alunoId": notasData.alunoId})
+            body: JSON.stringify(notasData)
         })
             .then((response) => {
                 if (response.ok) {

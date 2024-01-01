@@ -7,27 +7,27 @@ namespace engenharia_de_software_pb.BLL.Models
     {
         public int Id { get; set; }
         [ForeignKey("AlunoId")]
-        public Aluno? Aluno { get; set; }
+        public Aluno? Aluno { get; set; } = null;
         public int AlunoId { get; set; }
         public NumeroTeste NumeroTeste { get; set; } = new NumeroTeste();
-        public int? ReadingId { get; set; }
-        public int? WritingId { get; set; }
-        public int? ListeningId { get; set; }
-        public int? GrammarId { get; set; }
-        public int? SpeakingId { get; set; }
-        public int? ClassPerformanceId { get; set; }
+        public int? ReadingId { get; set; } = null;
+        public int? WritingId { get; set; } = null;
+        public int? ListeningId { get; set; } = null;
+        public int? GrammarId { get; set; } = null;
+        public int? SpeakingId { get; set; } = null;
+        public int? ClassPerformanceId { get; set; } = null;
         [ForeignKey("ReadingId")]
-        public Reading? Reading { get; set; }
+        public Reading? Reading { get; set; } = null;
         [ForeignKey("WritingId")]
-        public Writing? Writing { get; set; }
+        public Writing? Writing { get; set; } = null;
         [ForeignKey("ListeningId")]
-        public Listening? Listening { get; set; }
+        public Listening? Listening { get; set; } = null;
         [ForeignKey("GrammarId")]
-        public Grammar? Grammar { get; set; }
+        public Grammar? Grammar { get; set; } = null;
         [ForeignKey("SpeakingId")]
-        public Speaking? Speaking { get; set; }
+        public Speaking? Speaking { get; set; } = null;
         [ForeignKey("ClassPerformanceId")]
-        public ClassPerformance? ClassPerformance { get; set; }
+        public ClassPerformance? ClassPerformance { get; set; } = null;
         public double MediaFinal => ObterMediaFinal();
 
         public double ObterMediaFinal()

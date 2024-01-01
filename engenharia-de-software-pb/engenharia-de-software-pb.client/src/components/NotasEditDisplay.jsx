@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 export default function NotasDisplay({ notas, onChange }) {
     const [students, setStudents] = useState([]);
     const [grades, setGrades] = useState(notas);
+    const [name, setName] = useState("")
 
     useEffect(() => {
         onChange(grades)
@@ -16,13 +17,9 @@ export default function NotasDisplay({ notas, onChange }) {
     }, []);
 
     const handleStudentChange = (value, name) => {
+        setName(name)
         setGrades((prevData) => ({
             ...prevData,
-            ['aluno']: {
-                ...prevData['aluno'],
-                ['id']: value,
-                ['name']: name
-            },
             ['alunoId']: value
         }));
     }
@@ -105,9 +102,9 @@ export default function NotasDisplay({ notas, onChange }) {
                     Selecione o aluno:
                     <select
                         value={grades.alunoId}
-                        onChange={(e) => handleStudentChange(e.target.value, e.target.options[e.target.selectedIndex].text)}
+                        onChange={(e) => handleStudentChange(e.target.value)}
                     >
-                        <option value="" disabled>
+                        <option value="">
                             Escolha um aluno
                         </option>
                         {students.map((student) => (

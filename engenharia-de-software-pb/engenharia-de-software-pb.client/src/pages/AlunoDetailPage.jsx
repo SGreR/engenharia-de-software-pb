@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import NotasList from '../components/NotasList';
 
 function AlunoDetailPage() {
     const [aluno, setAluno] = useState(null)
     const [editing, setEditing] = useState(false);
+    const navigate = useNavigate()
     const { id } = useParams();
 
     useEffect(() => {
@@ -36,6 +37,7 @@ function AlunoDetailPage() {
             .then((response) => {
                 if (response.ok) {
                     console.log("Informações do aluno atualizadas com sucesso!");
+                    navigate(`/aluno/${id}`)
                 }
             })
             .catch(error => console.error("Erro ao atualizar informações:", error))

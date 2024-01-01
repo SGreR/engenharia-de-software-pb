@@ -4,7 +4,7 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, B
 const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemId }) => {
 
     const handleDelete = () => {
-        fetch(`https://localhost:7215/api/Alunos/${itemId}`, {
+        fetch(`https://localhost:7215/api/Notas/${itemId}`, {
             method: 'DELETE',
         })
             .then((response) => {

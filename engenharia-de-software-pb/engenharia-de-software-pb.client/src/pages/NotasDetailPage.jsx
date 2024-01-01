@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import NotasDisplay from '../components/NotasDisplay';
 import NotasEditDisplay from '../components/NotasEditDisplay';
 
 export default function NotasDetailPage() {
     const [notas, setNotas] = useState(null);
     const [editing, setEditing] = useState(false);
-
+    const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
@@ -27,6 +27,7 @@ export default function NotasDetailPage() {
             .then((response) => {
                 if (response.ok) {
                     console.log("Notas atualizadas com sucesso!");
+                    navigate(`/notas`)
                 }
             })
             .catch(error => console.error("Erro ao atualizar informações:", error))

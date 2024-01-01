@@ -45,40 +45,19 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
-            notas = await _notasRepository.Create(notas);
-            if (notas.Reading == null)
-            {
-                notas.Reading = NotaSimplesFactory<Reading>.CreateNotaSimples();
-            }
-            if (notas.Writing == null)
-            {
-                notas.Writing = NotaSimplesFactory<Writing>.CreateNotaSimples();
-            }
-            if (notas.Listening == null)
-            {
-                notas.Listening = NotaSimplesFactory<Listening>.CreateNotaSimples();
-            }
-            if (notas.Grammar == null)
-            {
-                notas.Grammar = NotaSimplesFactory<Grammar>.CreateNotaSimples();
-            }
-            if (notas.ClassPerformance == null)
-            {
-                notas.ClassPerformance = ClassPerformanceFactory.CreateClassPerformance();
-            }
-            if (notas.Speaking == null)
-            {
-                notas.Speaking = SpeakingFactory.CreateSpeaking();
-            }
-            notas.Reading.NotasId = notas.Id;
-            notas.Writing.NotasId = notas.Id;
-            notas.Listening.NotasId = notas.Id;
-            notas.Grammar.NotasId = notas.Id;
-            notas.ClassPerformance.NotasId = notas.Id;
-            notas.Speaking.NotasId = notas.Id;
 
-            notas = await _notasRepository.Update(notas);
-            
+            var novaNota = NotasFactory.CreateNotas(alunoId: notas.AlunoId);
+            novaNota = await _notasRepository.Create(novaNota);
+
+            novaNota.Reading = NotaSimplesFactory<Reading>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Reading.PrimeiraNota, segundaNota: notas.Reading.SegundaNota);
+            novaNota.Writing = NotaSimplesFactory<Writing>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Writing.PrimeiraNota, segundaNota: notas.Writing.SegundaNota);
+            novaNota.Listening = NotaSimplesFactory<Listening>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Listening.PrimeiraNota, segundaNota: notas.Listening.SegundaNota);
+            novaNota.Grammar = NotaSimplesFactory<Grammar>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Grammar.PrimeiraNota, segundaNota: notas.Grammar.SegundaNota);
+            novaNota.ClassPerformance = ClassPerformanceFactory.CreateClassPerformance(NotasId: novaNota.Id, presenceGrade: notas.ClassPerformance.PresenceGrade, homeworkGrade: notas.ClassPerformance.HomeworkGrade, participationGrade: notas.ClassPerformance.ParticipationGrade, behaviorGrade: notas.ClassPerformance.BehaviorGrade);
+            novaNota.Speaking = SpeakingFactory.CreateSpeaking(NotasId: novaNota.Id, productionAndFluencyGrade: notas.Speaking.ProductionAndFluencyGrade, spokenInteractionGrade: notas.Speaking.SpokenInteractionGrade, languageRangeGrade: notas.Speaking.LanguageRangeGrade, accuracyGrade: notas.Speaking.AccuracyGrade, l2Use: notas.Speaking.L2Use);
+
+            notas = await _notasRepository.Update(novaNota);
+
             return CreatedAtAction("GetNotas", new { id = notas.Id }, notas);
         }
 

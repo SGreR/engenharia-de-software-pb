@@ -10,6 +10,9 @@ namespace engenharia_de_software_pb.BLL.Factories
     public static class SpeakingFactory
     {
         public static Speaking CreateSpeaking(
+            int Id = 0,
+            int NotasId = 0,
+            Notas Notas = null,
             int productionAndFluencyGrade = 0,
             int spokenInteractionGrade = 0,
             int languageRangeGrade = 0,
@@ -18,6 +21,9 @@ namespace engenharia_de_software_pb.BLL.Factories
         {
             return new Speaking
             {
+                Id = Id,
+                NotasId = NotasId,
+                Notas = Notas,
                 ProductionAndFluencyGrade = productionAndFluencyGrade,
                 SpokenInteractionGrade = spokenInteractionGrade,
                 LanguageRangeGrade = languageRangeGrade,
