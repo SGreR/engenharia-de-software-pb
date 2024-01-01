@@ -12,10 +12,10 @@ namespace engenharia_de_software_pb.BLL.Factories
         public static Notas CreateNotas(
             Aluno aluno,
             NumeroTeste numeroTeste,
-            NotaSimples reading,
-            NotaSimples writing,
-            NotaSimples listening,
-            NotaSimples grammar,
+            Reading reading,
+            Writing writing,
+            Listening listening,
+            Grammar grammar,
             Speaking speaking,
             ClassPerformance classPerformance)
         {

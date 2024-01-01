@@ -15,34 +15,11 @@ namespace engenharia_de_software_pb.Data
         {
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Notas>()
-                .HasOne(n => n.Reading)
-                .WithMany()
-                .HasForeignKey(n => n.ReadingId);
-
-            modelBuilder.Entity<Notas>()
-                .HasOne(n => n.Writing)
-                .WithMany()
-                .HasForeignKey(n => n.WritingId);
-
-            modelBuilder.Entity<Notas>()
-                .HasOne(n => n.Listening)
-                .WithMany()
-                .HasForeignKey(n => n.ListeningId);
-
-            modelBuilder.Entity<Notas>()
-                .HasOne(n => n.Grammar)
-                .WithMany()
-                .HasForeignKey(n => n.GrammarId);
-
-            base.OnModelCreating(modelBuilder);
-        }
-
-
         public DbSet<Notas>? Notas { get; set; }
-        public DbSet<NotaSimples>? NotaSimples { get; set; }
+        public DbSet<Reading>? Readings { get; set; }
+        public DbSet<Listening>? Listenings { get; set; }
+        public DbSet<Writing>? Writings { get; set; }
+        public DbSet<Grammar> Grammars { get; set; }
         public DbSet<Aluno>? Alunos { get; set; }
         public DbSet<Speaking>? Speakings { get; set; }
         public DbSet<ClassPerformance>? ClassPerformances { get; set; }

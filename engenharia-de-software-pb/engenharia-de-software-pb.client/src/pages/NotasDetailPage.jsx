@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NotasDisplay from '../components/NotasDisplay';
+import NotasEditDisplay from '../components/NotasEditDisplay';
 
 export default function NotasDetailPage() {
-    const [notas, setNotas] = useState(null)
+    const [notas, setNotas] = useState(null);
+    const [editing, setEditing] = useState(false);
+
     const { id } = useParams();
 
     useEffect(() => {
@@ -13,23 +16,46 @@ export default function NotasDetailPage() {
             .catch(error => console.error(error));
     }, [id]);
 
+    const postGrades = () => {
+        fetch(`https://localhost:7215/api/Notas/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(notas)
+        })
+            .then((response) => {
+                if (response.ok) {
+                    console.log("Notas atualizadas com sucesso!");
+                }
+            })
+            .catch(error => console.error("Erro ao atualizar informações:", error))
+    };
+
+    const toggleEditing = () => {
+        setEditing(!editing);
+    }
+
+    const handleChange = (newGrades) => {
+        setNotas(newGrades);
+    }
+
     return (
         <div>
-
-            {notas === null ?
-                (
-                    <div>
-                        <h2>Loading....</h2>
-                    </div>
-                )
-                : (
-                    <div>
-                        <p>Id: {id}</p>
-                        <p>Aluno: {notas.aluno.name}</p>
-                        <p>Teste: {notas.numeroTeste}</p>
-                        <NotasDisplay notas={ notas } />
-                    </div>
-                )}
+            {notas === null ? (
+                <div>
+                    <h2>Loading....</h2>
+                </div>
+            ) : (
+                <div>
+                    <p>Id: {id}</p>
+                    <p>Aluno: {notas.aluno.name}</p>
+                    <p>Teste: {notas.numeroTeste}</p>
+                    {editing ? <button onClick={toggleEditing}>Cancelar</button> : <button onClick={toggleEditing}>Editar</button>}
+                    {editing ? <NotasEditDisplay onChange={handleChange} id={id} notas={notas} /> : <NotasDisplay id={id} notas={notas} />}
+                    <button onClick={postGrades}>Salvar</button>
+                </div>
+            )}
         </div>
     );
 }

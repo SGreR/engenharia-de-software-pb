@@ -10,10 +10,10 @@ namespace engenharia_de_software_pb.BLL.Factories
     public static class ClassPerformanceFactory
     {
         public static ClassPerformance CreateClassPerformance(
-            int presenceGrade,
-            int homeworkGrade,
-            int participationGrade,
-            int behaviorGrade)
+            int presenceGrade = 0,
+            int homeworkGrade = 0,
+            int participationGrade = 0,
+            int behaviorGrade = 0)
         {
             return new ClassPerformance
             {

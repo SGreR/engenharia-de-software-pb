@@ -7,11 +7,11 @@ using engenharia_de_software_pb.BLL.Models;
 
 namespace engenharia_de_software_pb.BLL.Factories
 {
-    public static class NotaSimplesFactory
+    public static class NotaSimplesFactory<T> where T : NotaSimples, new()
     {
-        public static NotaSimples CreateNotaSimples(double primeiraNota, double segundaNota)
+        public static T CreateNotaSimples(double primeiraNota = 0, double segundaNota = 0)
         {
-            return new NotaSimples
+            return new T
             {
                 PrimeiraNota = primeiraNota,
                 SegundaNota = segundaNota

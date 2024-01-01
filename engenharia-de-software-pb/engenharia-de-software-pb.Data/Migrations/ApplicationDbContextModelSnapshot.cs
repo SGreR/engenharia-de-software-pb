@@ -64,10 +64,57 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotasId")
-                        .IsUnique();
+                    b.HasIndex("NotasId");
 
                     b.ToTable("ClassPerformances");
+                });
+
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Grammar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("NotasId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("PrimeiraNota")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SegundaNota")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotasId");
+
+                    b.ToTable("Grammars");
+                });
+
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Listening", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("NotasId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("PrimeiraNota")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SegundaNota")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotasId");
+
+                    b.ToTable("Listenings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Notas", b =>
@@ -78,7 +125,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AlunoId")
+                    b.Property<int>("AlunoId")
                         .HasColumnType("int");
 
                     b.Property<int?>("ClassPerformanceId")
@@ -106,18 +153,22 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("AlunoId");
 
+                    b.HasIndex("ClassPerformanceId");
+
                     b.HasIndex("GrammarId");
 
                     b.HasIndex("ListeningId");
 
                     b.HasIndex("ReadingId");
 
+                    b.HasIndex("SpeakingId");
+
                     b.HasIndex("WritingId");
 
                     b.ToTable("Notas");
                 });
 
-            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.NotaSimples", b =>
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Reading", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -138,7 +189,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("NotasId");
 
-                    b.ToTable("NotaSimples");
+                    b.ToTable("Readings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Speaking", b =>
@@ -169,17 +220,62 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotasId")
-                        .IsUnique();
+                    b.HasIndex("NotasId");
 
                     b.ToTable("Speakings");
+                });
+
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Writing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("NotasId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("PrimeiraNota")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SegundaNota")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NotasId");
+
+                    b.ToTable("Writings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.ClassPerformance", b =>
                 {
                     b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
-                        .WithOne("ClassPerformance")
-                        .HasForeignKey("engenharia_de_software_pb.BLL.Models.ClassPerformance", "NotasId")
+                        .WithMany()
+                        .HasForeignKey("NotasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notas");
+                });
+
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Grammar", b =>
+                {
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
+                        .WithMany()
+                        .HasForeignKey("NotasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notas");
+                });
+
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Listening", b =>
+                {
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
+                        .WithMany()
+                        .HasForeignKey("NotasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -190,25 +286,37 @@ namespace engenharia_de_software_pb.Data.Migrations
                 {
                     b.HasOne("engenharia_de_software_pb.BLL.Models.Aluno", "Aluno")
                         .WithMany()
-                        .HasForeignKey("AlunoId");
+                        .HasForeignKey("AlunoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("engenharia_de_software_pb.BLL.Models.NotaSimples", "Grammar")
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.ClassPerformance", "ClassPerformance")
+                        .WithMany()
+                        .HasForeignKey("ClassPerformanceId");
+
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Grammar", "Grammar")
                         .WithMany()
                         .HasForeignKey("GrammarId");
 
-                    b.HasOne("engenharia_de_software_pb.BLL.Models.NotaSimples", "Listening")
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Listening", "Listening")
                         .WithMany()
                         .HasForeignKey("ListeningId");
 
-                    b.HasOne("engenharia_de_software_pb.BLL.Models.NotaSimples", "Reading")
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Reading", "Reading")
                         .WithMany()
                         .HasForeignKey("ReadingId");
 
-                    b.HasOne("engenharia_de_software_pb.BLL.Models.NotaSimples", "Writing")
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Speaking", "Speaking")
+                        .WithMany()
+                        .HasForeignKey("SpeakingId");
+
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Writing", "Writing")
                         .WithMany()
                         .HasForeignKey("WritingId");
 
                     b.Navigation("Aluno");
+
+                    b.Navigation("ClassPerformance");
 
                     b.Navigation("Grammar");
 
@@ -216,10 +324,12 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.Navigation("Reading");
 
+                    b.Navigation("Speaking");
+
                     b.Navigation("Writing");
                 });
 
-            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.NotaSimples", b =>
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Reading", b =>
                 {
                     b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
                         .WithMany()
@@ -233,19 +343,23 @@ namespace engenharia_de_software_pb.Data.Migrations
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Speaking", b =>
                 {
                     b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
-                        .WithOne("Speaking")
-                        .HasForeignKey("engenharia_de_software_pb.BLL.Models.Speaking", "NotasId")
+                        .WithMany()
+                        .HasForeignKey("NotasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Notas");
                 });
 
-            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Notas", b =>
+            modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Writing", b =>
                 {
-                    b.Navigation("ClassPerformance");
+                    b.HasOne("engenharia_de_software_pb.BLL.Models.Notas", "Notas")
+                        .WithMany()
+                        .HasForeignKey("NotasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Speaking");
+                    b.Navigation("Notas");
                 });
 #pragma warning restore 612, 618
         }

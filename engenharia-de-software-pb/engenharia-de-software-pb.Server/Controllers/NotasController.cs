@@ -1,4 +1,5 @@
-﻿using engenharia_de_software_pb.BLL.Models;
+﻿using engenharia_de_software_pb.BLL.Factories;
+using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -45,6 +46,39 @@ namespace engenharia_de_software_pb.Server.Controllers
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
             notas = await _notasRepository.Create(notas);
+            if (notas.Reading == null)
+            {
+                notas.Reading = NotaSimplesFactory<Reading>.CreateNotaSimples();
+            }
+            if (notas.Writing == null)
+            {
+                notas.Writing = NotaSimplesFactory<Writing>.CreateNotaSimples();
+            }
+            if (notas.Listening == null)
+            {
+                notas.Listening = NotaSimplesFactory<Listening>.CreateNotaSimples();
+            }
+            if (notas.Grammar == null)
+            {
+                notas.Grammar = NotaSimplesFactory<Grammar>.CreateNotaSimples();
+            }
+            if (notas.ClassPerformance == null)
+            {
+                notas.ClassPerformance = ClassPerformanceFactory.CreateClassPerformance();
+            }
+            if (notas.Speaking == null)
+            {
+                notas.Speaking = SpeakingFactory.CreateSpeaking();
+            }
+            notas.Reading.NotasId = notas.Id;
+            notas.Writing.NotasId = notas.Id;
+            notas.Listening.NotasId = notas.Id;
+            notas.Grammar.NotasId = notas.Id;
+            notas.ClassPerformance.NotasId = notas.Id;
+            notas.Speaking.NotasId = notas.Id;
+
+            notas = await _notasRepository.Update(notas);
+            
             return CreatedAtAction("GetNotas", new { id = notas.Id }, notas);
         }
 
