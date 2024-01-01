@@ -13,6 +13,7 @@ namespace engenharia_de_software_pb.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<Notas>? Notas { get; set; }

@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-export default function NotasList({ studentName = null, notasList }) {
+export default function NotasList({ allGrades = false, studentName = null, notasList }) {
     const [notas, setNotas] = useState(null)
     const [loading, setLoading] = useState(true);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
@@ -23,8 +23,15 @@ export default function NotasList({ studentName = null, notasList }) {
     const navigate = useNavigate();
 
     useEffect(() => {
-        setNotas(notasList);
-        setLoading(notas === null);
+        if (allGrades) {
+            const resolvedNotas = resolveReferences(notasList);
+            setNotas(resolvedNotas);
+            setLoading(resolvedNotas === null);
+        } else
+        {
+            setNotas(notasList)
+            setLoading(notasList === null);
+        }
     }, [notasList]);
 
     const handleEditClick = (notaId) => {
@@ -37,12 +44,24 @@ export default function NotasList({ studentName = null, notasList }) {
     };
 
     const handleDeleteConfirmation = () => {
-        console.log(`Delete confirmed for Nota ID: ${selectedNotaId}`);
         setDeleteConfirmationOpen(false);
+        window.location.reload();
     };
 
     const handleDeleteCancel = () => {
         setDeleteConfirmationOpen(false);
+    };
+
+    const resolveReferences = (notasList) => {
+        return notasList.map((nota) => {
+            if (nota.aluno && nota.aluno.$ref) {
+                const referencedAluno = notasList.find(
+                    (n) => n.aluno['$id'] === nota.aluno.$ref
+                );
+                return { ...nota, aluno: referencedAluno.aluno };
+            }
+            return nota;
+        });
     };
 
     return (
@@ -73,7 +92,7 @@ export default function NotasList({ studentName = null, notasList }) {
                         notas.map((nota) => (
                         <TableRow key={nota.id}>
                             <TableCell>{nota.id}</TableCell>
-                            <TableCell>{studentName == null ? nota.aluno.name : studentName}</TableCell>
+                            <TableCell>{studentName === null ? nota.aluno.name : studentName}</TableCell>
                             <TableCell>{nota.reading.media}</TableCell>
                             <TableCell>{nota.writing.media}</TableCell>
                             <TableCell>{nota.grammar.media}</TableCell>
@@ -99,6 +118,7 @@ export default function NotasList({ studentName = null, notasList }) {
                 onCancel={handleDeleteCancel}
                 onConfirm={handleDeleteConfirmation}
                 itemId={selectedNotaId}
+                itemType={"Notas"}
             />
         </>
     );

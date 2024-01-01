@@ -39,7 +39,7 @@ namespace engenharia_de_software_pb.Data.Repositories
         {
             try
             {
-                await _alunosDao.Delete(entity.Id);
+                await _alunosDao.Delete(entity);
                 return true;
             }
             catch (Exception ex)

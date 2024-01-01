@@ -1,4 +1,5 @@
-﻿using engenharia_de_software_pb.BLL.Factories;
+﻿using System.Linq.Expressions;
+using engenharia_de_software_pb.BLL.Factories;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
 using engenharia_de_software_pb.Data.Repositories;
@@ -65,6 +66,7 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNotas(int id, Notas notas)
         {
+            notas.Aluno = null;
             if (id != notas.Id)
             {
                 return BadRequest();
@@ -99,9 +101,19 @@ namespace engenharia_de_software_pb.Server.Controllers
                 return NotFound();
             }
 
-            await _notasRepository.Delete(notas);
+            try
+            {
+                await _notasRepository.Delete(notas);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+                return BadRequest();
+            }
 
-            return Ok();
+
+
         }
 
         private bool NotasExists(int id)

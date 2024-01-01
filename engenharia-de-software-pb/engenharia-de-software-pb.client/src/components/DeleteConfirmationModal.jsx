@@ -1,15 +1,15 @@
 import React from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 
-const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemId }) => {
+const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemType, itemId }) => {
 
     const handleDelete = () => {
-        fetch(`https://localhost:7215/api/Notas/${itemId}`, {
+        fetch(`https://localhost:7215/api/${itemType}/${itemId}`, {
             method: 'DELETE',
         })
             .then((response) => {
                 if (response.ok) {
-                    console.log("Notas deletadas com sucesso!");
+                    console.log("Item deletado com sucesso!");
                 }
             })
             .catch(error => console.error("Erro ao deletar informações:", error))
@@ -21,15 +21,15 @@ const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemId }) => {
             <DialogTitle>Delete Confirmation</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    Are you sure you want to delete this record?
+                    Tem certeza que deseja deletar esse item?
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
                 <Button onClick={onCancel} color="primary">
-                    Cancel
+                    Cancelar
                 </Button>
                 <Button onClick={handleDelete} color="error">
-                    Delete
+                    Deletar
                 </Button>
             </DialogActions>
         </Dialog>

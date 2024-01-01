@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import NotasList from '../components/NotasList';
 
 function AlunoDetailPage() {
     const [aluno, setAluno] = useState(null)
     const [editing, setEditing] = useState(false);
-    const navigate = useNavigate()
     const { id } = useParams();
 
     useEffect(() => {
@@ -26,7 +25,7 @@ function AlunoDetailPage() {
         }))
     }
 
-    const postStudent = () => {
+    const putStudent = () => {
         fetch(`https://localhost:7215/api/Alunos/${id}`, {
             method: 'PUT',
             headers: {
@@ -37,7 +36,7 @@ function AlunoDetailPage() {
             .then((response) => {
                 if (response.ok) {
                     console.log("Informações do aluno atualizadas com sucesso!");
-                    navigate(`/aluno/${id}`)
+                    window.location.reload();
                 }
             })
             .catch(error => console.error("Erro ao atualizar informações:", error))
@@ -75,7 +74,7 @@ function AlunoDetailPage() {
                                 <p>Nome: {aluno.name}</p>
                         </div>
                     )}
-                    <button onClick={postStudent}>Save Changes</button>
+                    <button onClick={putStudent}>Save Changes</button>
                     <NotasList studentName={ aluno.name } notasList={ aluno.notas.$values }/>
                 </div>
             )}

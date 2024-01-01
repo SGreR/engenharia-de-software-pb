@@ -14,15 +14,10 @@ namespace engenharia_de_software_pb.BLL.Factories
             int alunoId = 0,
             NumeroTeste numeroTeste = NumeroTeste.Primeiro,
             Reading? reading = null,
-            int? readingId = null,
             Writing? writing = null,
-            int? writingId  = null,
             Listening? listening = null,
-            int? listeningId  = null,
             Grammar? grammar = null,
-            int? grammarId  = null,
             Speaking? speaking = null,
-            int? speakingId  = null,
             ClassPerformance? classPerformance = null,
             int? classPerformanceId  = null
             )
@@ -33,17 +28,11 @@ namespace engenharia_de_software_pb.BLL.Factories
                 AlunoId = alunoId,
                 NumeroTeste = numeroTeste,
                 Reading = reading,
-                ReadingId = readingId,
                 Writing = writing,
-                WritingId = writingId,
                 Listening = listening,
-                ListeningId = listeningId,
                 Grammar = grammar,
-                GrammarId = grammarId,
                 Speaking = speaking,
-                SpeakingId = speakingId,
                 ClassPerformance = classPerformance,
-                ClassPerformanceId = classPerformanceId
             };
         }
     }

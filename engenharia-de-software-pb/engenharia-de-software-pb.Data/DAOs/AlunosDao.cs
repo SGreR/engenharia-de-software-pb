@@ -25,9 +25,9 @@ namespace engenharia_de_software_pb.Data.DAOs
             return entity;
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Aluno entity)
         {
-            _context.Remove(id);
+            _context.Remove(entity);
             await _context.SaveChangesAsync();
         }
 

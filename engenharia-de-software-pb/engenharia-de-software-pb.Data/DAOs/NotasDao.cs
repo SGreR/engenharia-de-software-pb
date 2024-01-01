@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
@@ -20,14 +21,23 @@ namespace engenharia_de_software_pb.Data.DAOs
         }
         public async Task<Notas> Add(Notas entity)
         {
-            _context.Add(entity);
-            await _context.SaveChangesAsync();
-            return entity;
+            try
+            {
+                _context.Add(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex) 
+            { 
+                Console.WriteLine(ex);
+                return entity;
+            }
+            
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(Notas entity)
         {
-            _context.Remove(id);
+            _context.Remove(entity);
             await _context.SaveChangesAsync();
         }
 

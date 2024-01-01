@@ -37,7 +37,7 @@ namespace engenharia_de_software_pb.Data.Repositories
         {
             try
             {
-                await _notasDao.Delete(entity.Id);
+                await _notasDao.Delete(entity);
                 return true;
             }
             catch (Exception ex)

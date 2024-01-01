@@ -12,6 +12,6 @@ namespace engenharia_de_software_pb.Data.Interfaces
         Task<T?> GetById(int id);
         Task<T> Add(T entity);
         Task<T> Update(T entity);
-        Task Delete(int id);
+        Task Delete(T entity);
     }
 }

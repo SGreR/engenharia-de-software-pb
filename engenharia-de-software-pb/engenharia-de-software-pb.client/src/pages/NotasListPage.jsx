@@ -32,7 +32,7 @@ export default function NotasListPage() {
             <IconButton onClick={() => handleClick()} color="primary">
                 <AddIcon /> Adicionar Notas
             </IconButton>
-            <NotasList notasList={notas}/>
+            <NotasList allGrades={true} notasList={notas} />
         </div>
     );
 }

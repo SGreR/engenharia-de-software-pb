@@ -6,7 +6,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    options.UseSqlServer(connectionString);
+    options.EnableSensitiveDataLogging();
+});
+    
 builder.Services.AddScoped<AlunosDao, AlunosDao>();
 builder.Services.AddScoped<NotasDao, NotasDao>();
 builder.Services.AddScoped<AlunoRepository, AlunoRepository>();
