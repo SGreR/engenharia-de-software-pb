@@ -1,5 +1,7 @@
+using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
 using engenharia_de_software_pb.Data.DAOs;
+using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +12,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
     options.EnableSensitiveDataLogging();
 });
-    
-builder.Services.AddScoped<AlunosDao, AlunosDao>();
-builder.Services.AddScoped<NotasDao, NotasDao>();
-builder.Services.AddScoped<AlunoRepository, AlunoRepository>();
-builder.Services.AddScoped<NotasRepository, NotasRepository>();
+
+builder.Services.AddScoped<IDao<Aluno>, AlunosDao>();
+builder.Services.AddScoped<IDao<Notas>, NotasDao>();
+builder.Services.AddScoped<IRepository<Aluno>, AlunoRepository>();
+builder.Services.AddScoped<IRepository<Notas>, NotasRepository>();
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>

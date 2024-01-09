@@ -35,13 +35,22 @@ namespace engenharia_de_software_pb.Data.DAOs
             
         }
 
-        public async Task Delete(Notas entity)
+        public async Task<bool> Delete(Notas entity)
         {
-            _context.Remove(entity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
-        public async Task<IEnumerable<Notas>> GetAll()
+            public async Task<IEnumerable<Notas>> GetAll()
         {
             return await _context.Notas
                 .Include(n => n.Aluno)

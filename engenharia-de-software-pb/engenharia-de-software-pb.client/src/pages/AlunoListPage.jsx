@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../App.css'
 import AlunoList from '../components/AlunoList';
 import AddIcon from '@mui/icons-material/Add';

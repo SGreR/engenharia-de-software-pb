@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import NotasDisplay from '../components/NotasDisplay';
 import NotasEditDisplay from '../components/NotasEditDisplay';
@@ -16,7 +16,7 @@ export default function NotasDetailPage() {
             .catch(error => console.error(error));
     }, [id]);
 
-    const postGrades = () => {
+    const putGrades = () => {
         fetch(`https://localhost:7215/api/Notas/${id}`, {
             method: 'PUT',
             headers: {
@@ -54,7 +54,7 @@ export default function NotasDetailPage() {
                     <p>Teste: {notas.numeroTeste}</p>
                     {editing ? <button onClick={toggleEditing}>Cancelar</button> : <button onClick={toggleEditing}>Editar</button>}
                     {editing ? <NotasEditDisplay onChange={handleChange} id={id} notas={notas} /> : <NotasDisplay id={id} notas={notas} />}
-                    <button onClick={postGrades}>Salvar</button>
+                    <button onClick={putGrades}>Salvar</button>
                 </div>
             )}
         </div>

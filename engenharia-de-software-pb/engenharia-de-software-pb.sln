@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "engenharia-de-software-pb.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "engenharia-de-software-pb.Data", "engenharia-de-software-pb.Data\engenharia-de-software-pb.Data.csproj", "{58334723-8F32-4E1C-B51A-41A0C2966A23}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "engenharia-de-software-pb.Tests", "engenharia-de-software-pb.Tests\engenharia-de-software-pb.Tests.csproj", "{4729DDFA-DF34-4124-A636-9C1CE5DEA345}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{58334723-8F32-4E1C-B51A-41A0C2966A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58334723-8F32-4E1C-B51A-41A0C2966A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58334723-8F32-4E1C-B51A-41A0C2966A23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4729DDFA-DF34-4124-A636-9C1CE5DEA345}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4729DDFA-DF34-4124-A636-9C1CE5DEA345}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4729DDFA-DF34-4124-A636-9C1CE5DEA345}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4729DDFA-DF34-4124-A636-9C1CE5DEA345}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

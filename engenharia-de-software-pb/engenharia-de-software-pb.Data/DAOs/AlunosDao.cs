@@ -25,20 +25,35 @@ namespace engenharia_de_software_pb.Data.DAOs
             return entity;
         }
 
-        public async Task Delete(Aluno entity)
+        public async Task<bool> Delete(Aluno entity)
         {
-            _context.Remove(entity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
 
-        public async Task<IEnumerable<Aluno>> GetAll()
+            public async Task<IEnumerable<Aluno>> GetAll()
         {
             return await _context.Alunos.ToListAsync();
+        }
+
+        public Task<IEnumerable<Aluno>> GetByAlunoId(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<Aluno?> GetById(int id)
         {
             return await _context.Alunos
+                .Include(a => a.Notas)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

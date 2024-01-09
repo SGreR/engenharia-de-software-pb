@@ -12,13 +12,11 @@ namespace engenharia_de_software_pb.Data.Repositories
 {
     public class AlunoRepository : IRepository<Aluno>
     {
-        private readonly AlunosDao _alunosDao;
-        private readonly NotasRepository _notasRepository;
+        private readonly IDao<Aluno> _alunosDao;
 
-        public AlunoRepository(AlunosDao alunosDao, NotasRepository notasRepository)
+        public AlunoRepository(IDao<Aluno> alunosDao)
         {
             _alunosDao = alunosDao;
-            _notasRepository = notasRepository;
         }
         public async Task<Aluno> Create(Aluno entity)
         {
@@ -68,11 +66,6 @@ namespace engenharia_de_software_pb.Data.Repositories
             try
             {
                 var aluno = await _alunosDao.GetById(id);
-                if (aluno != null)
-                {
-                    var notasDoAluno = await _notasRepository.GetByAlunoId(id);
-                    aluno.PopularNotas(notasDoAluno);
-                }
                 return aluno;
             }
             catch (Exception ex)

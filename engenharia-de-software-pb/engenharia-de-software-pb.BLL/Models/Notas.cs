@@ -11,15 +11,15 @@ namespace engenharia_de_software_pb.BLL.Models
         public int AlunoId { get; set; }
         public NumeroTeste NumeroTeste { get; set; } = new NumeroTeste();
 
-        public Reading? Reading { get; set; } = null;
-        public Writing? Writing { get; set; } = null;
-        public Listening? Listening { get; set; } = null;
-        public Grammar? Grammar { get; set; } = null;
-        public Speaking? Speaking { get; set; } = null;
-        public ClassPerformance? ClassPerformance { get; set; } = null;
+        public Reading? Reading { get; set; } = new Reading();
+        public Writing? Writing { get; set; } = new Writing();
+        public Listening? Listening { get; set; } = new Listening();
+        public Grammar? Grammar { get; set; } = new Grammar();
+        public Speaking? Speaking { get; set; } = new Speaking();
+        public ClassPerformance? ClassPerformance { get; set; } = new ClassPerformance();
         public double MediaFinal => ObterMediaFinal();
 
-        public double ObterMediaFinal()
+        protected double ObterMediaFinal()
         {
             double[] notas = new double[]{
                 Reading == null ? 0 : Reading.Media,

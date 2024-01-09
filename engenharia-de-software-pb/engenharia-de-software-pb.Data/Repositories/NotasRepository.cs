@@ -11,9 +11,9 @@ namespace engenharia_de_software_pb.Data.Repositories
 {
     public class NotasRepository : IRepository<Notas>
     {
-        public readonly NotasDao _notasDao;
+        public readonly IDao<Notas> _notasDao;
 
-        public NotasRepository(NotasDao notasDao)
+        public NotasRepository(IDao<Notas> notasDao)
         {
             _notasDao = notasDao;
         }

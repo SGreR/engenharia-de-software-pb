@@ -1,5 +1,6 @@
 ﻿using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
+using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,9 +12,9 @@ namespace engenharia_de_software_pb.Server.Controllers
     [ApiController]
     public class AlunosController : ControllerBase
     { 
-        private readonly AlunoRepository _alunosRepository;
+        private readonly IRepository<Aluno> _alunosRepository;
 
-        public AlunosController(AlunoRepository alunosRepository)
+        public AlunosController(IRepository<Aluno> alunosRepository)
         {
             _alunosRepository = alunosRepository;
         }

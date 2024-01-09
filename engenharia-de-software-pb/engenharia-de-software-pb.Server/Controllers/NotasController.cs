@@ -2,6 +2,7 @@
 using engenharia_de_software_pb.BLL.Factories;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data;
+using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,9 @@ namespace engenharia_de_software_pb.Server.Controllers
     [ApiController]
     public class NotasController : ControllerBase
     {
-        private readonly NotasRepository _notasRepository;
+        private readonly IRepository<Notas> _notasRepository;
 
-        public NotasController(NotasRepository notasRepository)
+        public NotasController(IRepository<Notas> notasRepository)
         {
             _notasRepository = notasRepository;
         }
@@ -46,18 +47,15 @@ namespace engenharia_de_software_pb.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
-
-            var novaNota = NotasFactory.CreateNotas(alunoId: notas.AlunoId);
-            novaNota = await _notasRepository.Create(novaNota);
-
-            novaNota.Reading = NotaSimplesFactory<Reading>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Reading.PrimeiraNota, segundaNota: notas.Reading.SegundaNota);
-            novaNota.Writing = NotaSimplesFactory<Writing>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Writing.PrimeiraNota, segundaNota: notas.Writing.SegundaNota);
-            novaNota.Listening = NotaSimplesFactory<Listening>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Listening.PrimeiraNota, segundaNota: notas.Listening.SegundaNota);
-            novaNota.Grammar = NotaSimplesFactory<Grammar>.CreateNotaSimples(NotasId: novaNota.Id, primeiraNota: notas.Grammar.PrimeiraNota, segundaNota: notas.Grammar.SegundaNota);
-            novaNota.ClassPerformance = ClassPerformanceFactory.CreateClassPerformance(NotasId: novaNota.Id, presenceGrade: notas.ClassPerformance.PresenceGrade, homeworkGrade: notas.ClassPerformance.HomeworkGrade, participationGrade: notas.ClassPerformance.ParticipationGrade, behaviorGrade: notas.ClassPerformance.BehaviorGrade);
-            novaNota.Speaking = SpeakingFactory.CreateSpeaking(NotasId: novaNota.Id, productionAndFluencyGrade: notas.Speaking.ProductionAndFluencyGrade, spokenInteractionGrade: notas.Speaking.SpokenInteractionGrade, languageRangeGrade: notas.Speaking.LanguageRangeGrade, accuracyGrade: notas.Speaking.AccuracyGrade, l2Use: notas.Speaking.L2Use);
-
-            notas = await _notasRepository.Update(novaNota);
+            try
+            {
+                await _notasRepository.Create(notas);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex);
+            }
+            
 
             return CreatedAtAction("GetNotas", new { id = notas.Id }, notas);
         }
