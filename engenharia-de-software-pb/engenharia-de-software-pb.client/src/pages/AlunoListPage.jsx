@@ -10,7 +10,7 @@ const AlunoListPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://localhost:7215/api/Alunos")
+        fetch("https://localhost:7245/api/Alunos")
             .then(response => response.json())
             .then(data => {
                 if (data && Array.isArray(data.$values)) {

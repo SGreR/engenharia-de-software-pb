@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
-using engenharia_de_software_pb.Server.Controllers;
+using engenharia_de_software_pb.notas.Controllers;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

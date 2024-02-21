@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace engenharia_de_software_pb.Server.Controllers
+namespace engenharia_de_software_pb.alunos.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

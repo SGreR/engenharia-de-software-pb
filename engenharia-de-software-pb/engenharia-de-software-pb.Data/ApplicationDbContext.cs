@@ -24,5 +24,6 @@ namespace engenharia_de_software_pb.Data
         public DbSet<Aluno>? Alunos { get; set; }
         public DbSet<Speaking>? Speakings { get; set; }
         public DbSet<ClassPerformance>? ClassPerformances { get; set; }
+        public DbSet<Turma>? Turmas { get; set;}
     }
 }

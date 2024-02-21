@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using engenharia_de_software_pb.Data;
 
@@ -10,9 +11,10 @@ using engenharia_de_software_pb.Data;
 namespace engenharia_de_software_pb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240221121046_Turmas")]
+    partial class Turmas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("TurmasId");
 
-                    b.ToTable("AlunoTurma", (string)null);
+                    b.ToTable("AlunoTurma");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Aluno", b =>
@@ -50,7 +52,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Alunos", (string)null);
+                    b.ToTable("Alunos");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.ClassPerformance", b =>
@@ -81,7 +83,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("ClassPerformances", (string)null);
+                    b.ToTable("ClassPerformances");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Grammar", b =>
@@ -106,7 +108,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Grammars", (string)null);
+                    b.ToTable("Grammars");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Listening", b =>
@@ -131,7 +133,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Listenings", (string)null);
+                    b.ToTable("Listenings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Notas", b =>
@@ -157,7 +159,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("TurmaId");
 
-                    b.ToTable("Notas", (string)null);
+                    b.ToTable("Notas");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Reading", b =>
@@ -182,7 +184,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Readings", (string)null);
+                    b.ToTable("Readings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Speaking", b =>
@@ -216,7 +218,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Speakings", (string)null);
+                    b.ToTable("Speakings");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Turma", b =>
@@ -233,7 +235,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Turmas", (string)null);
+                    b.ToTable("Turmas");
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Writing", b =>
@@ -258,7 +260,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Writings", (string)null);
+                    b.ToTable("Writings");
                 });
 
             modelBuilder.Entity("AlunoTurma", b =>

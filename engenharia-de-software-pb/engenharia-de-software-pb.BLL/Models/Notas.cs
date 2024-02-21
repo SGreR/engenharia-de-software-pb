@@ -9,6 +9,8 @@ namespace engenharia_de_software_pb.BLL.Models
         [ForeignKey("AlunoId")]
         public Aluno? Aluno { get; set; } = null;
         public int AlunoId { get; set; }
+        public Turma? Turma { get; set; } = null;
+        public int TurmaId { get; set; }
         public NumeroTeste NumeroTeste { get; set; } = new NumeroTeste();
 
         public Reading? Reading { get; set; } = new Reading();

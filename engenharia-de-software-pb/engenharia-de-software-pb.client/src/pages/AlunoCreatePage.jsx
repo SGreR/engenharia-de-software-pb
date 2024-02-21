@@ -21,7 +21,7 @@ const AlunoCreatePage = () => {
 
     const handleCreateAluno = () => {
         // Perform the API request to create a new aluno
-        fetch('https://localhost:7215/api/Alunos', {
+        fetch('https://localhost:7245/api/Alunos', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -47,7 +47,7 @@ const NotasCreatePage = () => {
     const handleCreateNotas = () => {
         console.log(JSON.stringify(notasData));
         
-        fetch('https://localhost:7215/api/Notas', {
+        fetch('https://localhost:7128/api/Notas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

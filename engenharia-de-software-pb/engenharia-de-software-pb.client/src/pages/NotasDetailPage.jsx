@@ -17,7 +17,7 @@ export default function NotasDetailPage() {
     }, [id]);
 
     const putGrades = () => {
-        fetch(`https://localhost:7215/api/Notas/${id}`, {
+        fetch(`https://localhost:7128/api/Notas/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

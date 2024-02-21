@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
-using engenharia_de_software_pb.Server.Controllers;
 using engenharia_de_software_pb.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using engenharia_de_software_pb.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
+using engenharia_de_software_pb.alunos.Controllers;
 
 namespace engenharia_de_software_pb.Tests.Controllers
 {

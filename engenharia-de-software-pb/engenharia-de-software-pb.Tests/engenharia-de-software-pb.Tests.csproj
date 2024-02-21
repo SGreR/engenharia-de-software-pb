@@ -24,9 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\engenharia-de-software-pb.alunos\engenharia-de-software-pb.alunos.csproj" />
     <ProjectReference Include="..\engenharia-de-software-pb.BLL\engenharia-de-software-pb.BLL.csproj" />
     <ProjectReference Include="..\engenharia-de-software-pb.Data\engenharia-de-software-pb.Data.csproj" />
-    <ProjectReference Include="..\engenharia-de-software-pb.Server\engenharia-de-software-pb.Server.csproj" />
+    <ProjectReference Include="..\engenharia-de-software-pb.notas\engenharia-de-software-pb.notas.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,8 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddScoped<IDao<Notas>, NotasDao>();
-builder.Services.AddScoped<IRepository<Notas>, NotasRepository>();
+builder.Services.AddScoped<IDao<Aluno>, AlunosDao>();
+builder.Services.AddScoped<IRepository<Aluno>, AlunoRepository>();
 
 builder.Services.AddCors(options =>
 {

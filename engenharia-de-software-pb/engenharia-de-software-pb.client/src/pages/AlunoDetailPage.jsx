@@ -8,7 +8,7 @@ function AlunoDetailPage() {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`https://localhost:7215/api/Alunos/${id}`)
+        fetch(`https://localhost:7245/api/Alunos/${id}`)
             .then(response => response.json())
             .then(data => setAluno(data))
             .catch(error => console.error(error));

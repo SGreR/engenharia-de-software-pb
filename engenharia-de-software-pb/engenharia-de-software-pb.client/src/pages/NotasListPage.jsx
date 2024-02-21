@@ -10,7 +10,7 @@ export default function NotasListPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://localhost:7215/api/Notas")
+        fetch("https://localhost:7128/api/Notas")
             .then(response => response.json())
             .then(data => {
                 if (data && Array.isArray(data.$values)) {
