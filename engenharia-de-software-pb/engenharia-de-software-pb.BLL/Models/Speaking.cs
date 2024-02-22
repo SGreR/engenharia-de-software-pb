@@ -12,8 +12,6 @@ namespace engenharia_de_software_pb.BLL.Models
     {
         public int Id { get; set; }
         public int NotasId { get; set; } = 0;
-        [ForeignKey("NotasId")]
-        public Notas? Notas { get; set; }
         [Range(0, 5)]
         public int ProductionAndFluencyGrade { get; set; } = 0;
         [Range(0, 5)]

@@ -47,6 +47,7 @@ namespace engenharia_de_software_pb.notas.Controllers
         [HttpPost]
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
+            notas.TurmaId = 1;
             try
             {
                 await _notasRepository.Create(notas);

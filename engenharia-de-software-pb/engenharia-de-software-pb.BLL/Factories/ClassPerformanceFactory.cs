@@ -22,7 +22,6 @@ namespace engenharia_de_software_pb.BLL.Factories
             {
                 Id = Id,
                 NotasId = NotasId,
-                Notas = Notas,
                 PresenceGrade = presenceGrade,
                 HomeworkGrade = homeworkGrade,
                 ParticipationGrade = participationGrade,

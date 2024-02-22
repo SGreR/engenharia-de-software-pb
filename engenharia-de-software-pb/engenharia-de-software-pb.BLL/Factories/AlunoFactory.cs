@@ -17,10 +17,5 @@ namespace engenharia_de_software_pb.BLL.Factories
             };
         }
 
-        public static void PopularNotas(this Aluno aluno, IEnumerable<Notas> notas)
-        {
-            aluno.Notas = notas.ToList();
-        }
-
     }
 }

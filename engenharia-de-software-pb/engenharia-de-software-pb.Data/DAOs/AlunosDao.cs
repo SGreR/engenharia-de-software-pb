@@ -53,7 +53,6 @@ namespace engenharia_de_software_pb.Data.DAOs
         public async Task<Aluno?> GetById(int id)
         {
             return await _context.Alunos
-                .Include(a => a.Notas)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

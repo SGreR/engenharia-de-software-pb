@@ -23,7 +23,6 @@ namespace engenharia_de_software_pb.BLL.Factories
             {
                 Id = Id,
                 NotasId = NotasId,
-                Notas = Notas,
                 ProductionAndFluencyGrade = productionAndFluencyGrade,
                 SpokenInteractionGrade = spokenInteractionGrade,
                 LanguageRangeGrade = languageRangeGrade,

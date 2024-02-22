@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function NotasDisplay({ notas, onChange }) {
     const [students, setStudents] = useState([]);
+    const [turmas, setTurmas] = useState([])
     const [grades, setGrades] = useState(notas);
     const [name, setName] = useState("")
 
@@ -10,10 +11,15 @@ export default function NotasDisplay({ notas, onChange }) {
     }, [grades])
 
     useEffect(() => {
-        fetch('https://localhost:7215/api/Alunos')
+        fetch('https://localhost:7245/api/Alunos')
             .then((response) => response.json())
             .then((data) => setStudents(data['$values']))
             .catch((error) => console.error('Erro coletando alunos:', error));
+
+        /*fetch('https://localhost:7245/api/Turmas')
+            .then((response) => response.json())
+            .then((data) => setStudents(data['$values']))
+            .catch((error) => console.error('Erro coletando alunos:', error));*/
     }, []);
 
     const handleStudentChange = (value, name) => {
@@ -21,6 +27,13 @@ export default function NotasDisplay({ notas, onChange }) {
         setGrades((prevData) => ({
             ...prevData,
             ['alunoId']: value
+        }));
+    }
+
+    const handleClassChange = (value) => {
+        setGrades((prevData) => ({
+            ...prevData,
+            ['turmaId']: value
         }));
     }
 
@@ -110,6 +123,22 @@ export default function NotasDisplay({ notas, onChange }) {
                         {students.map((student) => (
                             <option key={student.id} value={student.id}>
                                 {student.name}
+                            </option>
+                        ))}
+                    </select>
+                </label>
+                <label>
+                    Selecione a turma:
+                    <select
+                        value={grades.turmaId}
+                        onChange={(e) => handleClassChange(e.target.value)}
+                    >
+                        <option value="">
+                            Escolha uma turma
+                        </option>
+                        {turmas.map((turma) => (
+                            <option key={turma.id} value={turma.id}>
+                                {turma.name}
                             </option>
                         ))}
                     </select>
