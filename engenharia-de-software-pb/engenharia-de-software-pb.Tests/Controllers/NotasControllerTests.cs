@@ -65,7 +65,7 @@ namespace engenharia_de_software_pb.Tests.Controllers
         }
 
         [Fact]
-        public async Task DeleteNotas_ReturnsOk()
+        public async Task DeleteNotas_ReturnsNoContent()
         {
             var newNotas = new Notas { Id = 3, AlunoId = 3 };
             _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>()))
@@ -73,8 +73,8 @@ namespace engenharia_de_software_pb.Tests.Controllers
 
             var result = await _notasController.DeleteNotas(newNotas.Id);
 
-            var actionResult = Assert.IsType<OkResult>(result);
-            Assert.Equal(StatusCodes.Status200OK, actionResult.StatusCode);
+            var actionResult = Assert.IsType<NoContentResult>(result);
+            Assert.Equal(StatusCodes.Status204NoContent, actionResult.StatusCode);
         }
 
         [Fact]

@@ -41,6 +41,13 @@ namespace engenharia_de_software_pb.alunos.Controllers
             return aluno;
         }
 
+        [HttpGet("GetByRelatedId/{type}/{id}")]
+        public async Task<ActionResult<IEnumerable<Aluno>>> GetByAlunoId(string type, int id)
+        {
+            var alunos = await _alunosRepository.GetByRelatedId(type, id);
+            return alunos.ToList();
+        }
+
         // POST: api/Alunos
         [HttpPost]
         public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)

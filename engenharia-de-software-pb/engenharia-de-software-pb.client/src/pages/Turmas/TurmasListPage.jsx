@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import {useNavigate } from 'react-router-dom'
-import '../App.css';
-import NotasList from '../components/NotasList';
+import { useNavigate } from 'react-router-dom'
+import '@/App.css';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
+import TurmasList from '@components/TurmasList';
 
-export default function NotasListPage() {
-    const [notas, setNotas] = useState([]);
+export default function TurmasListPage() {
+    const [turmas, setTurmas] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://localhost:7128/api/Notas")
+        fetch("https://localhost:7215/api/Turmas")
             .then(response => response.json())
             .then(data => {
                 if (data && Array.isArray(data.$values)) {
-                    setNotas(data.$values);
+                    setTurmas(data.$values);
                 } else {
                     console.error("Invalid data structure received from API:", data);
                 }
@@ -23,16 +23,16 @@ export default function NotasListPage() {
     }, []);
 
     const handleClick = () => {
-        navigate('/notas/create')
+        navigate('/turmas/create')
     }
 
     return (
         <div>
             <h1>Notas</h1>
             <IconButton onClick={() => handleClick()} color="primary">
-                <AddIcon /> Adicionar Notas
+                <AddIcon /> Adicionar Turmas
             </IconButton>
-            <NotasList allGrades={true} notasList={notas} />
+            <TurmasList turmasList={turmas} />
         </div>
     );
 }

@@ -54,6 +54,7 @@ namespace engenharia_de_software_pb.Data.DAOs
         {
             return await _context.Notas
                 .Include(n => n.Aluno)
+                .Include(n => n.Turma)
                 .Include(n => n.Reading)
                 .Include(n => n.Writing)
                 .Include(n => n.Listening)
@@ -63,21 +64,31 @@ namespace engenharia_de_software_pb.Data.DAOs
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<Notas>> GetMultipleByIds(IEnumerable<int> idList)
+        public async Task<IEnumerable<Notas?>> GetByRelatedId(string type, int id)
         {
-            var notas = new List<Notas>();
-            foreach(var id in idList)
-            {
-                var nota = await GetById(id);
-                notas.Add(nota);
-            }
-            return notas;
-        }
+            IQueryable<Notas> query = _context.Notas
+                .Include(n => n.Aluno)
+                .Include(n => n.Turma)
+                .Include(n => n.Reading)
+                .Include(n => n.Writing)
+                .Include(n => n.Listening)
+                .Include(n => n.Grammar)
+                .Include(n => n.Speaking)
+                .Include(n => n.ClassPerformance);
 
-        public async Task<IEnumerable<Notas?>> GetByAlunoId(int id)
-        {
-            var notasDoAlunoIds = GetAll().Result.Where(n => n.AlunoId == id).Select(n => n.Id);
-            return await GetMultipleByIds(notasDoAlunoIds);
+            switch(type)
+            {
+                case "aluno": 
+                    query = query.Where(n => n.AlunoId == id);
+                    break;
+                case "turma":
+                    query = query.Where(n => n.TurmaId == id);
+                    break;
+                default:
+                    return Enumerable.Empty<Notas?>();
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Notas?> GetById(int id)

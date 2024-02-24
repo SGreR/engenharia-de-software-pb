@@ -64,7 +64,7 @@ namespace engenharia_de_software_pb.Tests.Controllers
         }
 
         [Fact]
-        public async Task DeleteAluno_ReturnsOk()
+        public async Task DeleteAluno_ReturnsNoContent()
         {
             var newAluno = new Aluno { Id = 3, Name = "Novo Aluno" };
             _mockRepository.Setup(repo => repo.GetById(It.IsAny<int>()))

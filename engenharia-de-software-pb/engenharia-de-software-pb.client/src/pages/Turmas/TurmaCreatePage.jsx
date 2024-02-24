@@ -1,70 +1,67 @@
-// AlunoCreatePage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const AlunoCreatePage = () => {
-    const [alunoData, setAlunoData] = useState({
-        // Initialize the state with any default values you need
-        name: '',
-        // Add other fields as needed
+const TurmaCreatePage = () => {
+
+    const [turmaData, setTurmaData] = useState({
+        nome: '',
     });
 
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setAlunoData((prevData) => ({
+        setTurmaData((prevData) => ({
             ...prevData,
             [name]: value,
         }));
     };
 
-    const handleCreateAluno = () => {
-        // Perform the API request to create a new aluno
-        fetch('https://localhost:7245/api/Alunos', {
+    const handleCreateTurma = () => {
+        fetch('https://localhost:7215/api/Turmas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(alunoData),
+            body: JSON.stringify(turmaData),
         })
             .then((response) => {
                 if (response.ok) {
-                    console.log('Aluno adicionado com sucesso!');
-                    navigate('/alunos');
+                    console.log('Turma adicionada com sucesso!');
+                    navigate('/turmas');
                 } else {
-                    console.error('Erro ao adicionar aluno:', response.statusText);
+                    console.error('Erro ao adicionar turma:', response.statusText);
                 }
             })
             .catch((error) => {
-                console.error('Error ao criar aluno:', error);
+                console.error('Error ao criar turma:', error);
             });
     };
 
     return (
         <div>
-            <h2>Create Aluno</h2>
+            <h2>Create Turma</h2>
             <form>
                 <div>
                     <label>
-                        Name:
+                        Nome:
                         <input
                             type="text"
-                            name="name"
-                            value={alunoData.name}
+                            name="nome"
+                            value={turmaData.nome}
                             onChange={handleInputChange}
                         />
                     </label>
                 </div>
 
                 <div>
-                    <button type="button" onClick={handleCreateAluno}>
-                        Adicionar Aluno
+                    <button type="button" onClick={handleCreateTurma}>
+                        Adicionar Turma
                     </button>
                 </div>
             </form>
         </div>
     );
-};
+}
 
-export default AlunoCreatePage;
+export default TurmaCreatePage;

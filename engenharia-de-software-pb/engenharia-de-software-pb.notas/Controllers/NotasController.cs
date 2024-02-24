@@ -43,11 +43,17 @@ namespace engenharia_de_software_pb.notas.Controllers
             return notas;
         }
 
+        [HttpGet("GetByRelatedId/{type}/{id}")]
+        public async Task<ActionResult<IEnumerable<Notas>>> GetByRelatedId(string type, int id)
+        {
+            var notas = await _notasRepository.GetByRelatedId(type, id);
+            return notas.ToList();
+        }
+
         // POST: api/Notas
         [HttpPost]
         public async Task<ActionResult<Notas>> PostNotas(Notas notas)
         {
-            notas.TurmaId = 1;
             try
             {
                 await _notasRepository.Create(notas);
@@ -65,7 +71,6 @@ namespace engenharia_de_software_pb.notas.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutNotas(int id, Notas notas)
         {
-            notas.Aluno = null;
             if (id != notas.Id)
             {
                 return BadRequest();
@@ -103,7 +108,7 @@ namespace engenharia_de_software_pb.notas.Controllers
             try
             {
                 await _notasRepository.Delete(notas);
-                return Ok();
+                return NoContent();
             }
             catch (Exception ex)
             {

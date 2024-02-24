@@ -1,20 +1,20 @@
 import { useState, useEffect } from 'react';
-import '../App.css'
-import AlunoList from '../components/AlunoList';
+import {useNavigate } from 'react-router-dom'
+import '@/App.css';
+import NotasList from '@components/NotasList';
 import AddIcon from '@mui/icons-material/Add';
 import { IconButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom'
 
-const AlunoListPage = () => {
-    const [alunos, setAlunos] = useState([]);
+export default function NotasListPage() {
+    const [notas, setNotas] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch("https://localhost:7245/api/Alunos")
+        fetch("https://localhost:7128/api/Notas")
             .then(response => response.json())
             .then(data => {
                 if (data && Array.isArray(data.$values)) {
-                    setAlunos(data.$values);
+                    setNotas(data.$values);
                 } else {
                     console.error("Invalid data structure received from API:", data);
                 }
@@ -23,18 +23,16 @@ const AlunoListPage = () => {
     }, []);
 
     const handleClick = () => {
-        navigate('/alunos/create')
+        navigate('/notas/create')
     }
 
     return (
         <div>
-            <h1>Lista de Alunos</h1>
+            <h1>Notas</h1>
             <IconButton onClick={() => handleClick()} color="primary">
-                <AddIcon /> Adicionar Aluno
+                <AddIcon /> Adicionar Notas
             </IconButton>
-            <AlunoList alunosList={ alunos } />
+            <NotasList notasList={notas} />
         </div>
     );
-};
-
-export default AlunoListPage;
+}

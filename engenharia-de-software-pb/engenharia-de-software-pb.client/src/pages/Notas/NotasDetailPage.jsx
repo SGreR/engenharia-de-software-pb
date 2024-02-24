@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import NotasDisplay from '../components/NotasDisplay';
-import NotasEditDisplay from '../components/NotasEditDisplay';
+import NotasDisplay from '@components/NotasDisplay';
+import NotasEditDisplay from '@components/NotasEditDisplay';
 
 export default function NotasDetailPage() {
     const [notas, setNotas] = useState(null);

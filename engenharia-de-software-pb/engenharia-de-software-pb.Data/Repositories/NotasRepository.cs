@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
@@ -74,11 +75,12 @@ namespace engenharia_de_software_pb.Data.Repositories
             }
         }
 
-        public async Task<IEnumerable<Notas>> GetByAlunoId(int id)
+        public async Task<IEnumerable<Notas>> GetByRelatedId(string type, int id)
         {
             try
             {
-                return await _notasDao.GetByAlunoId(id);
+                return await _notasDao.GetByRelatedId(type, id);
+                
             }
             catch (Exception ex)
             {

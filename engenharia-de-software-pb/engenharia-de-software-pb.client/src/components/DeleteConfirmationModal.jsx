@@ -4,7 +4,25 @@ import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, B
 const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemType, itemId }) => {
 
     const handleDelete = () => {
-        fetch(`https://localhost:7215/api/${itemType}/${itemId}`, {
+
+        var link = "";
+        switch (itemType) {
+            case "Notas":
+                link = "https://localhost:7128/api";
+                break;
+            case "Alunos":
+                link = "https://localhost:7245/api";
+                break;
+            case "Turmas":
+                link = "https://localhost:7215/api";
+                break;
+            default:
+                link = "";
+                break;
+        }
+
+
+        fetch(`${link}/${itemType}/${itemId}`, {
             method: 'DELETE',
         })
             .then((response) => {

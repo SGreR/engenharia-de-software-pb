@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-export default function NotasList({ allGrades = false, studentName = null, notasList }) {
+export default function NotasList({ studentName = null, notasList }) {
     const [notas, setNotas] = useState(null)
     const [loading, setLoading] = useState(true);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
@@ -23,15 +23,9 @@ export default function NotasList({ allGrades = false, studentName = null, notas
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (allGrades) {
-            const resolvedNotas = resolveReferences(notasList);
-            setNotas(resolvedNotas);
-            setLoading(resolvedNotas === null);
-        } else
-        {
-            setNotas(notasList)
-            setLoading(notasList === null);
-        }
+        const resolvedNotas = resolveReferences(notasList);
+        setNotas(resolvedNotas);
+        setLoading(resolvedNotas === null);
     }, [notasList]);
 
     const handleEditClick = (notaId) => {
@@ -53,13 +47,32 @@ export default function NotasList({ allGrades = false, studentName = null, notas
     };
 
     const resolveReferences = (notasList) => {
+
+        const referencedObjects = new Map();
+        notasList.forEach((nota) => {
+            if (nota.aluno && nota.aluno.$id) {
+                referencedObjects.set(nota.aluno.$id, nota.aluno);
+            }
+            if (nota.turma && nota.turma.$id) {
+                referencedObjects.set(nota.turma.$id, nota.turma);
+            }
+        });
+
         return notasList.map((nota) => {
             if (nota.aluno && nota.aluno.$ref) {
-                const referencedAluno = notasList.find(
-                    (n) => n.aluno['$id'] === nota.aluno.$ref
-                );
-                return { ...nota, aluno: referencedAluno.aluno };
+                const referencedAluno = referencedObjects.get(nota.aluno.$ref);
+                if (referencedAluno) {
+                    nota.aluno = referencedAluno;
+                }
             }
+
+            if (nota.turma && nota.turma.$ref) {
+                const referencedTurma = referencedObjects.get(nota.turma.$ref);
+                if (referencedTurma) {
+                    nota.turma = referencedTurma;
+                }
+            }
+
             return nota;
         });
     };
@@ -71,6 +84,8 @@ export default function NotasList({ allGrades = false, studentName = null, notas
                 <TableRow>
                     <TableCell>ID</TableCell>
                     <TableCell>Aluno</TableCell>
+                    <TableCell>Turma</TableCell>
+                    <TableCell>Teste</TableCell>
                     <TableCell>Reading</TableCell>
                     <TableCell>Writing</TableCell>
                     <TableCell>Listening</TableCell>
@@ -93,6 +108,8 @@ export default function NotasList({ allGrades = false, studentName = null, notas
                         <TableRow key={nota.id}>
                             <TableCell>{nota.id}</TableCell>
                             <TableCell>{studentName === null ? nota.aluno.name : studentName}</TableCell>
+                            <TableCell>{nota.turma.nome}</TableCell>
+                            <TableCell>{nota.numeroTeste}</TableCell>
                             <TableCell>{nota.reading.media}</TableCell>
                             <TableCell>{nota.writing.media}</TableCell>
                             <TableCell>{nota.grammar.media}</TableCell>

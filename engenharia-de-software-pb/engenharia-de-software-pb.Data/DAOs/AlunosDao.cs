@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
+using engenharia_de_software_pb.Data.Migrations;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace engenharia_de_software_pb.Data.DAOs
 {
@@ -54,6 +56,23 @@ namespace engenharia_de_software_pb.Data.DAOs
         {
             return await _context.Alunos
                 .FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<IEnumerable<Aluno?>> GetByRelatedId(string type, int id)
+        {
+            IQueryable<Aluno> query = _context.Alunos
+                .Include(a => a.Turmas);
+
+            switch (type)
+            {
+                case "turma":
+                    query = query.Where(a => a.Turmas.Any(t => t.Id == id));
+                    break;
+                default:
+                    return Enumerable.Empty<Aluno?>();
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<Aluno> Update(Aluno entity)

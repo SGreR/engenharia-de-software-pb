@@ -28,6 +28,7 @@
     <ProjectReference Include="..\engenharia-de-software-pb.BLL\engenharia-de-software-pb.BLL.csproj" />
     <ProjectReference Include="..\engenharia-de-software-pb.Data\engenharia-de-software-pb.Data.csproj" />
     <ProjectReference Include="..\engenharia-de-software-pb.notas\engenharia-de-software-pb.notas.csproj" />
+    <ProjectReference Include="..\engenharia-de-software-pb.turmas\engenharia-de-software-pb.turmas.csproj" />
   </ItemGroup>
 
 </Project>

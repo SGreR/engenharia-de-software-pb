@@ -3,41 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using engenharia_de_software_pb.BLL.Factories;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.DAOs;
 using engenharia_de_software_pb.Data.Interfaces;
 
 namespace engenharia_de_software_pb.Data.Repositories
 {
-    public class AlunoRepository : IRepository<Aluno>
+    public class TurmasRepository : IRepository<Turma>
     {
-        private readonly IDao<Aluno> _alunosDao;
+        public readonly IDao<Turma> _turmasDao;
 
-        public AlunoRepository(IDao<Aluno> alunosDao)
+        public TurmasRepository(IDao<Turma> turmasDao)
         {
-            _alunosDao = alunosDao;
+            _turmasDao = turmasDao;
         }
-        public async Task<Aluno> Create(Aluno entity)
+
+        public async Task<Turma> Create(Turma entity)
         {
             try
             {
-                await _alunosDao.Add(entity);
+                await _turmasDao.Add(entity);
                 return entity;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return entity;
             }
-            
         }
 
-        public async Task<bool> Delete(Aluno entity)
+        public async Task<bool> Delete(Turma entity)
         {
             try
             {
-                await _alunosDao.Delete(entity);
+                await _turmasDao.Delete(entity);
                 return true;
             }
             catch (Exception ex)
@@ -45,28 +44,26 @@ namespace engenharia_de_software_pb.Data.Repositories
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            
         }
 
-        public async Task<IEnumerable<Aluno>> GetAll()
+        public async Task<IEnumerable<Turma>> GetAll()
         {
             try
             {
-                return await _alunosDao.GetAll();
+                return await _turmasDao.GetAll();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return Enumerable.Empty<Aluno>();
+                return Enumerable.Empty<Turma>();
             }
         }
 
-        public async Task<Aluno?> GetById(int id)
+        public async Task<Turma?> GetById(int id)
         {
             try
             {
-                var aluno = await _alunosDao.GetById(id);
-                return aluno;
+                return await _turmasDao.GetById(id);
             }
             catch (Exception ex)
             {
@@ -75,25 +72,25 @@ namespace engenharia_de_software_pb.Data.Repositories
             }
         }
 
-        public async Task<IEnumerable<Aluno>> GetByRelatedId(string type, int id)
+        public async Task<IEnumerable<Turma>> GetByRelatedId(string type, int id)
         {
             try
             {
-                return await _alunosDao.GetByRelatedId(type, id);
+                return await _turmasDao.GetByRelatedId(type, id);
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return Enumerable.Empty<Aluno>();
+                return Enumerable.Empty<Turma>();
             }
         }
 
-        public async Task<Aluno> Update(Aluno entity)
+        public async Task<Turma> Update(Turma entity)
         {
             try
             {
-                return await _alunosDao.Update(entity);
+                return await _turmasDao.Update(entity);
             }
             catch (Exception ex)
             {
@@ -101,7 +98,5 @@ namespace engenharia_de_software_pb.Data.Repositories
                 return entity;
             }
         }
-
-        
     }
 }

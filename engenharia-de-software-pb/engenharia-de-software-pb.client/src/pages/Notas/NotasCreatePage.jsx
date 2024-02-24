@@ -1,7 +1,7 @@
 // NotasCreatePage.jsx
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NotasEditDisplay from '../components/NotasEditDisplay';
+import NotasEditDisplay from '@components/NotasEditDisplay';
 
 const NotasCreatePage = () => {
     

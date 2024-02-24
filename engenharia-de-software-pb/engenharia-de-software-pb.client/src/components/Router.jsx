@@ -1,12 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import HomePage from '../pages/HomePage';
-import AlunoListPage from '../pages/AlunoListPage';
-import AlunoDetailPage from '../pages/AlunoDetailPage';
-import NotasListPage from '../pages/NotasListPage';
-import NotasDetailPage from '../pages/NotasDetailPage';
-import AlunoCreatePage from '../pages/AlunoCreatePage';
-import NotasCreatePage from '../pages/NotasCreatePage';
+import AlunoListPage from '../pages/Alunos/AlunoListPage';
+import AlunoDetailPage from '../pages/Alunos/AlunoDetailPage';
+import NotasListPage from '../pages/Notas/NotasListPage';
+import NotasDetailPage from '../pages/Notas/NotasDetailPage';
+import AlunoCreatePage from '../pages/Alunos/AlunoCreatePage';
+import NotasCreatePage from '../pages/Notas/NotasCreatePage';
+import TurmasListPage from '../pages/Turmas/TurmasListPage';
+import TurmasCreatePage from '../pages/Turmas/TurmaCreatePage';
+import TurmasDetailPage from '../pages/Turmas/TurmasDetailPage';
 
 function ReactComponent() {
   return (
@@ -19,6 +22,9 @@ function ReactComponent() {
           <Route element={<NotasListPage />} exact path="/notas" />
           <Route element={<NotasDetailPage />} exact path="/notas/:id" />
           <Route element={<NotasCreatePage />} exact path="/notas/create" />
+          <Route element={<TurmasListPage />} exact path="/turmas" />
+          <Route element={<TurmasDetailPage />} exact path="/turmas/:id" />
+          <Route element={<TurmasCreatePage />} exact path="/turmas/create" />
       </Routes>
   );
 }
