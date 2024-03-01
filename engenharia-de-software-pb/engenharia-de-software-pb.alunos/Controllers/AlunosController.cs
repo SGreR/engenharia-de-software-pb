@@ -48,6 +48,13 @@ namespace engenharia_de_software_pb.alunos.Controllers
             return alunos.ToList();
         }
 
+        [HttpGet("GetMultipleById")]
+        public async Task<ActionResult<IEnumerable<Aluno>>> GetMultipleById([FromQuery] IEnumerable<int> ids)
+        {
+            var alunos = await _alunosRepository.GetMultipleByIds(ids);
+            return alunos.ToList();
+        }
+
         // POST: api/Alunos
         [HttpPost]
         public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)

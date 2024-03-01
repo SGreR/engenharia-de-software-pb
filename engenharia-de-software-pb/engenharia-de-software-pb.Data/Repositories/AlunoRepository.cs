@@ -75,17 +75,25 @@ namespace engenharia_de_software_pb.Data.Repositories
             }
         }
 
-        public Task<Aluno?> GetByIdAsNoTracking(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Aluno>> GetByRelatedId(string type, int id)
         {
             try
             {
                 return await _alunosDao.GetByRelatedId(type, id);
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Enumerable.Empty<Aluno>();
+            }
+        }
+
+        public async Task<IEnumerable<Aluno?>> GetMultipleByIds(IEnumerable<int> ids)
+        {
+            try
+            {
+                return await _alunosDao.GetMultipleByIds(ids);
             }
             catch (Exception ex)
             {

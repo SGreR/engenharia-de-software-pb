@@ -116,5 +116,10 @@ namespace engenharia_de_software_pb.Data.DAOs
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Notas?>> GetMultipleByIds(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

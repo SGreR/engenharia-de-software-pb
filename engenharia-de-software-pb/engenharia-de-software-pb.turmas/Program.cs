@@ -3,6 +3,7 @@ using engenharia_de_software_pb.Data;
 using engenharia_de_software_pb.Data.DAOs;
 using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Repositories;
+using engenharia_de_software_pb.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IDao<Turma>, TurmasDao>();
 builder.Services.AddScoped<IRepository<Turma>, TurmasRepository>();
+builder.Services.AddScoped<AlunosService>();
 
 builder.Services.AddCors(options =>
 {

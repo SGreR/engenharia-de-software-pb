@@ -86,6 +86,11 @@ namespace engenharia_de_software_pb.Data.Repositories
             }
         }
 
+        public Task<IEnumerable<Turma?>> GetMultipleByIds(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Turma> Update(Turma entity)
         {
             try

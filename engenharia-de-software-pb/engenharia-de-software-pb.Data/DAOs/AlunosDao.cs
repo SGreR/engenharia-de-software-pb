@@ -47,11 +47,6 @@ namespace engenharia_de_software_pb.Data.DAOs
             return await _context.Alunos.ToListAsync();
         }
 
-        public Task<IEnumerable<Aluno>> GetByAlunoId(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Aluno?> GetById(int id)
         {
             return await _context.Alunos
@@ -77,6 +72,13 @@ namespace engenharia_de_software_pb.Data.DAOs
                     return Enumerable.Empty<Aluno?>();
             }
 
+            return await query.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Aluno?>> GetMultipleByIds(IEnumerable<int> ids)
+        {
+            IQueryable<Aluno> query = _context.Alunos
+                .Where(a => ids.Contains(a.Id));
             return await query.ToListAsync();
         }
 

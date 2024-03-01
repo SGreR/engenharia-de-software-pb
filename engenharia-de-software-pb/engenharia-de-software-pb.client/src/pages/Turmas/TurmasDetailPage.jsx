@@ -7,7 +7,7 @@ const TurmasDetailPage = () => {
 
     const [turma, setTurma] = useState(
         {
-            "$id" : 0,
+            "$id": 0,
             "id": 0,
             "nome": "",
             "alunos": []
@@ -22,8 +22,7 @@ const TurmasDetailPage = () => {
     useEffect(() => {
         fetch(`https://localhost:7215/api/Turmas/${id}`)
             .then(response => response.json())
-            .then(data =>
-            {
+            .then(data => {
                 var novaTurma =
                 {
                     "$id": data.$id,
@@ -32,7 +31,7 @@ const TurmasDetailPage = () => {
                     "alunos": data.alunos.$values.map(aluno => {
                         const { $id, ...rest } = aluno;
                         return rest;
-                        })
+                    })
                 }
                 setTurma(novaTurma)
             })
@@ -111,7 +110,6 @@ const TurmasDetailPage = () => {
             })
             .catch(error => console.log("Erro ao atualizar informações:", error))
     };
-
     
 
     const toggleAdicionarAluno = () => {

@@ -12,6 +12,7 @@ namespace engenharia_de_software_pb.Data.Interfaces
         Task<IEnumerable<T>> GetAll();
         Task<T?> GetById(int id);
         Task<IEnumerable<T?>> GetByRelatedId(string type, int id);
+        Task<IEnumerable<T?>> GetMultipleByIds (IEnumerable<int> ids);
         Task<T> Add(T entity);
         Task<T> Update(T entity);
         Task<bool> Delete(T entity);

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
+using engenharia_de_software_pb.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
@@ -13,10 +14,12 @@ namespace engenharia_de_software_pb.Data.DAOs
     public class TurmasDao : IDao<Turma>
     {
         private readonly ApplicationDbContext _context;
+        private readonly AlunosService _alunosService;
 
-        public TurmasDao(ApplicationDbContext applicationDbContext)
+        public TurmasDao(ApplicationDbContext applicationDbContext, AlunosService alunosService)
         {
             _context = applicationDbContext;
+            _alunosService = alunosService;
         }
 
         public async Task<Turma> Add(Turma entity)
@@ -79,12 +82,24 @@ namespace engenharia_de_software_pb.Data.DAOs
             return await query.ToListAsync();
         }
 
+        public Task<IEnumerable<Turma?>> GetMultipleByIds(IEnumerable<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Turma> Update(Turma entity)
         {
             try
             {
-                var tracker = _context.ChangeTracker.Entries();
+                var turmaAntiga = await GetById(entity.Id);
+                turmaAntiga.Nome = entity.Nome;
+                _alunosService.AtualizarAlunos(turmaAntiga, entity);
 
+                entity.Id = 0;
+                _context.Entry(entity).State = EntityState.Detached;
+                _context.ChangeTracker.Clear();
+
+                _context.Update(turmaAntiga);
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
