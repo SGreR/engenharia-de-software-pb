@@ -75,6 +75,11 @@ namespace engenharia_de_software_pb.Data.Repositories
             }
         }
 
+        public Task<Notas?> GetByIdAsNoTracking(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Notas>> GetByRelatedId(string type, int id)
         {
             try

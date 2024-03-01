@@ -111,5 +111,10 @@ namespace engenharia_de_software_pb.Data.DAOs
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public Task<Notas> GetByIdAsNoTracking(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

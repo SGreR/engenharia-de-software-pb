@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace engenharia_de_software_pb.Data.DAOs
 {
@@ -52,7 +52,6 @@ namespace engenharia_de_software_pb.Data.DAOs
         public async Task<IEnumerable<Turma>> GetAll()
         {
             return await _context.Turmas
-                .Include(t => t.Alunos)
                 .ToListAsync();
         }
 
@@ -82,8 +81,16 @@ namespace engenharia_de_software_pb.Data.DAOs
 
         public async Task<Turma> Update(Turma entity)
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var tracker = _context.ChangeTracker.Entries();
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
             return entity;
         }
     }

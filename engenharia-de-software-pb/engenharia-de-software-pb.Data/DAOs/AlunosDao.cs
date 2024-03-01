@@ -58,6 +58,11 @@ namespace engenharia_de_software_pb.Data.DAOs
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 
+        public Task<Aluno> GetByIdAsNoTracking(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IEnumerable<Aluno?>> GetByRelatedId(string type, int id)
         {
             IQueryable<Aluno> query = _context.Alunos

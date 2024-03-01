@@ -15,11 +15,6 @@ export default function NotasDisplay({ notas, onChange }) {
             .then((response) => response.json())
             .then((data) => setStudents(data['$values']))
             .catch((error) => console.error('Erro coletando alunos:', error));
-
-        /*fetch('https://localhost:7245/api/Turmas')
-            .then((response) => response.json())
-            .then((data) => setStudents(data['$values']))
-            .catch((error) => console.error('Erro coletando alunos:', error));*/
     }, []);
 
     const handleStudentChange = (value, name) => {

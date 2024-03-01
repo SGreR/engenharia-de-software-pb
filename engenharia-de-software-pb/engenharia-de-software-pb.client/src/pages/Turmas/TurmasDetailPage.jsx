@@ -5,15 +5,37 @@ import AlunoList from '@components/AlunoList';
 
 const TurmasDetailPage = () => {
 
-    const [turma, setTurma] = useState(null)
+    const [turma, setTurma] = useState(
+        {
+            "$id" : 0,
+            "id": 0,
+            "nome": "",
+            "alunos": []
+        })
+    const [alunos, setAlunos] = useState(null)
+    const [alunoSelecionado, setAlunoSelecionado] = useState([])
     const [notas, setNotas] = useState([])
     const [editing, setEditing] = useState(false);
+    const [adding, setAdding] = useState(false);
     const { id } = useParams();
 
     useEffect(() => {
         fetch(`https://localhost:7215/api/Turmas/${id}`)
             .then(response => response.json())
-            .then(data => setTurma(data))
+            .then(data =>
+            {
+                var novaTurma =
+                {
+                    "$id": data.$id,
+                    "id": data.id,
+                    "nome": data.nome,
+                    "alunos": data.alunos.$values.map(aluno => {
+                        const { $id, ...rest } = aluno;
+                        return rest;
+                        })
+                }
+                setTurma(novaTurma)
+            })
             .catch(error => console.error(error));
     }, [id]);
 
@@ -30,6 +52,23 @@ const TurmasDetailPage = () => {
             .catch(error => console.error(error));
     }, [id])
 
+    useEffect(() => {
+        fetch("https://localhost:7245/api/Alunos")
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.$values) {
+                    const alunosWithoutId = data.$values.map(aluno => {
+                        const { $id, ...rest } = aluno;
+                        return rest;
+                    })
+                    setAlunos(alunosWithoutId);
+                } else {
+                    console.error("Invalid data structure received from API:", data);
+                }
+            })
+            .catch(error => console.log(error));
+    }, [])
+
     const toggleEditing = () => {
         setEditing(!editing)
     }
@@ -42,6 +81,7 @@ const TurmasDetailPage = () => {
     }
 
     const putTurma = () => {
+        var turmaJson = JSON.stringify(turma)
         fetch(`https://localhost:7215/api/Turmas/${id}`, {
             method: 'PUT',
             headers: {
@@ -54,9 +94,44 @@ const TurmasDetailPage = () => {
                     console.log("Informações da turma atualizadas com sucesso!");
                     window.location.reload();
                 }
+                else {
+                    // Log the status code and status text
+                    console.log("Response Status:", response.status);
+                    console.log("Response Status Text:", response.statusText);
+
+
+                    // If the response contains JSON data, log that as well
+                    response.json().then(data => {
+                        console.log("Response Data:", data.errors)
+                        console.log("Turma Errors:", data.errors.turma);
+                        console.log("Alunos Errors:", data.errors['$.alunos.$values']);
+                    }
+                    );
+                }
             })
-            .catch(error => console.error("Erro ao atualizar informações:", error))
+            .catch(error => console.log("Erro ao atualizar informações:", error))
     };
+
+    
+
+    const toggleAdicionarAluno = () => {
+        setAdding(!adding);
+    }
+
+    const handleStudentChange = (value) => {
+        setAlunoSelecionado(value)
+    }
+
+    const addStudent = () => {
+        if (alunoSelecionado) {
+            const selectedAluno = alunos.find(aluno => aluno.id === parseInt(alunoSelecionado));
+            if (selectedAluno) {
+                selectedAluno.turmas.$values = [{$ref: turma.$id}];
+                const updatedAlunos = [...turma.alunos, selectedAluno];
+                setTurma(prevTurma => ({ ...prevTurma, alunos: updatedAlunos }));
+            }
+        }
+    }
 
     return (
         <div>
@@ -97,7 +172,39 @@ const TurmasDetailPage = () => {
                             </>
                         )}
                         <h2>Alunos</h2>
-                        <AlunoList alunosList={turma.alunos.$values} />
+                        { alunos == null ? <></> : <button onClick={toggleAdicionarAluno}>Adicionar aluno</button>}
+                        {adding ?
+                            (
+                                <div>
+                                    <label>
+                                        Selecione o aluno:
+                                        <select
+                                            value={alunoSelecionado}
+                                            onChange={(e) => handleStudentChange(e.target.value)}
+                                        >
+                                            <option value="">
+                                                Escolha um aluno
+                                            </option>
+                                            {alunos.map((aluno) => {
+                                                const isStudentInTurma = turma.alunos.some(turmaAluno => turmaAluno.id === aluno.id);
+                                                return <option
+                                                    key={aluno.id}
+                                                    value={aluno.id}
+                                                    disabled={isStudentInTurma}
+                                                    style={{ color: isStudentInTurma ? 'gray' : 'black' }}
+                                                    >
+                                                    {aluno.name}
+                                                </option>
+                                            })}
+                                        </select>
+                                    </label>
+                                    <button onClick={addStudent}>+</button>
+                                    <button onClick={putTurma}>Save Changes</button>
+                                </div>
+                            ) : (
+                                <></>
+                            )}
+                        <AlunoList alunosList={turma.alunos} />
                         <hr></hr>
                         <h2>Notas</h2>
                         <NotasList notasList={notas} />

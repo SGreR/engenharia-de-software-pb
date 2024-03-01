@@ -45,6 +45,10 @@ export default function TurmasList({ turmasList }) {
         setDeleteConfirmationOpen(false);
     };
 
+    const resolveReferences = () => {
+
+    }
+
 
     return (
         <>
@@ -53,7 +57,6 @@ export default function TurmasList({ turmasList }) {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Turma</TableCell>
-                        <TableCell>Alunos</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -69,7 +72,6 @@ export default function TurmasList({ turmasList }) {
                             <TableRow key={turma.id}>
                                 <TableCell>{turma.id}</TableCell>
                                 <TableCell>{turma.nome}</TableCell>
-                                <TableCell>{turma.alunos.count}</TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => handleEditClick(turma.id)} color="primary">
                                         <EditIcon />
