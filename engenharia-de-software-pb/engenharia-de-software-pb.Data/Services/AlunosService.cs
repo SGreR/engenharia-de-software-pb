@@ -10,23 +10,30 @@ namespace engenharia_de_software_pb.Data.Services
 {
     public class AlunosService
     {
-        public async void AtualizarAlunos(Turma turmaAntiga, Turma turmaAtualizada)
+        public void AtualizarAlunos(Turma turmaAntiga, Turma turmaAtualizada)
         {
-
-            foreach (var aluno in turmaAntiga.Alunos.ToList())
-            {
-                if (!turmaAtualizada.Alunos.Any(a => a.Id == aluno.Id))
-                {
-                    turmaAntiga.Alunos.Remove(aluno);
-                }
-            }
-
             foreach (var aluno in turmaAtualizada.Alunos)
             {
-                if (!turmaAntiga.Alunos.Any(a => a.Id == aluno.Id))
+                var existingAluno = turmaAntiga.Alunos.FirstOrDefault(a => a.Id == aluno.Id);
+                if (existingAluno != null)
+                {
+                    existingAluno.Id = aluno.Id;
+                    existingAluno.Name = aluno.Name;
+                    existingAluno.Turmas = null;
+                }
+                else
                 {
                     turmaAntiga.Alunos.Add(aluno);
                 }
+            }
+
+            var alunosToRemove = turmaAntiga.Alunos
+                .Where(aluno => !turmaAtualizada.Alunos.Any(a => a.Id == aluno.Id))
+                .ToList();
+
+            foreach (var alunoToRemove in alunosToRemove)
+            {
+                turmaAntiga.Alunos.Remove(alunoToRemove);
             }
 
             foreach (var aluno in turmaAntiga.Alunos)

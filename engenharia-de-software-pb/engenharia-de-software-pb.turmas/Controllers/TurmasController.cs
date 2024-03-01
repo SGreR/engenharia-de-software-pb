@@ -2,6 +2,7 @@
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.DAOs;
 using engenharia_de_software_pb.Data.Interfaces;
+using engenharia_de_software_pb.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -69,14 +70,9 @@ namespace engenharia_de_software_pb.turmas.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTurmas(int id, Turma turma)
         {
-            if (id != turma.Id)
-            {
-                return BadRequest();
-            }
 
             try
             {
-
                 await _turmasRepository.Update(turma);
             }
             catch (DbUpdateConcurrencyException)

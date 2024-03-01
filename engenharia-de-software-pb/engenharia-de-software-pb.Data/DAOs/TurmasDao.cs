@@ -89,17 +89,35 @@ namespace engenharia_de_software_pb.Data.DAOs
 
         public async Task<Turma> Update(Turma entity)
         {
+            var tracker = _context.ChangeTracker.Entries();
+            var id = entity.Id;
+            var turmaAntiga = await _context.Turmas.AsNoTracking().Include(t => t.Alunos).FirstOrDefaultAsync(t => t.Id == id);
+
             try
             {
-                var turmaAntiga = await GetById(entity.Id);
-                turmaAntiga.Nome = entity.Nome;
-                _alunosService.AtualizarAlunos(turmaAntiga, entity);
+                _context.Update(entity);
+                tracker = _context.ChangeTracker.Entries();
+                foreach(var entry in tracker)
+                {
+                    if(entry.Entity is Aluno aluno)
+                    {
+                        if (turmaAntiga.Alunos.Any(a => a.Id == aluno.Id))
+                        {
+                            entry.State = EntityState.Detached;
+                        }
+                    }
 
-                entity.Id = 0;
-                _context.Entry(entity).State = EntityState.Detached;
-                _context.ChangeTracker.Clear();
-
-                _context.Update(turmaAntiga);
+                    if(entry.Entity is Dictionary<string,object> dictionary)
+                    {
+                        var alunoId = dictionary["AlunosId"];
+                        var turmaId = dictionary["TurmasId"];
+                        if (turmaAntiga.Alunos.Any(aluno => aluno.Id.ToString() == dictionary["AlunosId"].ToString()) && turmaAntiga.Id.ToString() == dictionary["TurmasId"].ToString())
+                        {
+                            entry.State = EntityState.Detached;
+                        }
+                    }
+                }
+                tracker = _context.ChangeTracker.Entries();
                 await _context.SaveChangesAsync();
             }
             catch (Exception ex)
