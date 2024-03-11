@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -11,28 +11,27 @@ import {
     CircularProgress,
     IconButton,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-export default function TurmasList({ turmasList }) {
-    const [turmas, setTurmas] = useState(null)
+export default function ProfessorList({ professoresList }) {
+    const [professores, setProfessores] = useState(professoresList)
     const [loading, setLoading] = useState(true);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
-    const [selectedTurmaId, setSelectedTurmaId] = useState(null);
+    const [selectedProfessorId, setSelectedProfessorId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setTurmas(turmasList)
-        setLoading(turmasList === null);
-    }, [turmasList]);
+        setProfessores(professoresList);
+        setLoading(professoresList === null);
+    }, [professoresList]);
 
-    const handleEditClick = (turmaId) => {
-        navigate(`/turmas/${turmaId}`)
+    const handleEditClick = (professorId) => {
+        navigate(`/professores/${professorId}`)
     };
 
-    const handleDeleteClick = (turmaId) => {
-        setSelectedTurmaId(turmaId);
+    const handleDeleteClick = (professorId) => {
+        setSelectedProfessorId(professorId);
         setDeleteConfirmationOpen(true);
     };
 
@@ -45,14 +44,13 @@ export default function TurmasList({ turmasList }) {
         setDeleteConfirmationOpen(false);
     };
 
-
     return (
         <>
             <Table hoverRow stripe={'odd'} stickyHeader>
                 <TableHead>
                     <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Turma</TableCell>
+                        <TableCell>Name</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -64,15 +62,15 @@ export default function TurmasList({ turmasList }) {
                             </TableCell>
                         </TableRow>
                     ) : (
-                        turmas.map((turma) => (
-                            <TableRow key={turma.id}>
-                                <TableCell>{turma.id}</TableCell>
-                                <TableCell>{turma.nome}</TableCell>
+                        professores.map((professor) => (
+                            <TableRow key={professor.id}>
+                                <TableCell>{professor.id}</TableCell>
+                                <TableCell>{professor.name}</TableCell>
                                 <TableCell>
-                                    <IconButton onClick={() => handleEditClick(turma.id)} color="primary">
+                                    <IconButton onClick={() => handleEditClick(professor.id)} color="primary">
                                         <EditIcon />
                                     </IconButton>
-                                    <IconButton onClick={() => handleDeleteClick(turma.id)} color="error">
+                                    <IconButton onClick={() => handleDeleteClick(professor.id)} color="error">
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
@@ -85,9 +83,9 @@ export default function TurmasList({ turmasList }) {
                 open={deleteConfirmationOpen}
                 onCancel={handleDeleteCancel}
                 onConfirm={handleDeleteConfirmation}
-                itemId={selectedTurmaId}
-                itemType={"Turmas"}
+                itemId={selectedProfessorId}
+                itemType={'Professores'}
             />
         </>
-    );
+    )
 }

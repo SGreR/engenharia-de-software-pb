@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
+using engenharia_de_software_pb.Data.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 namespace engenharia_de_software_pb.Data
@@ -25,5 +26,6 @@ namespace engenharia_de_software_pb.Data
         public DbSet<Speaking>? Speakings { get; set; }
         public DbSet<ClassPerformance>? ClassPerformances { get; set; }
         public DbSet<Turma>? Turmas { get; set;}
+        public DbSet<Professor>? Professores { get; set; }
     }
 }

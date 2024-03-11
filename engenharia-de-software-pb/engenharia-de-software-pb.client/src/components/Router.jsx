@@ -10,6 +10,9 @@ import NotasCreatePage from '../pages/Notas/NotasCreatePage';
 import TurmasListPage from '../pages/Turmas/TurmasListPage';
 import TurmasCreatePage from '../pages/Turmas/TurmaCreatePage';
 import TurmasDetailPage from '../pages/Turmas/TurmasDetailPage';
+import ProfessorListPage from '../pages/Professores/ProfessorListPage';
+import ProfessorCreatePage from '../pages/Professores/ProfessorCreatePage';
+import ProfessorDetailPage from '../pages/Professores/ProfessorDetailPage';
 
 function ReactComponent() {
   return (
@@ -25,6 +28,10 @@ function ReactComponent() {
           <Route element={<TurmasListPage />} exact path="/turmas" />
           <Route element={<TurmasDetailPage />} exact path="/turmas/:id" />
           <Route element={<TurmasCreatePage />} exact path="/turmas/create" />
+          <Route element={<ProfessorListPage />} exact path="/professores" />
+          <Route element={<ProfessorDetailPage />} exact path="/professores/:id" />
+          <Route element={<ProfessorCreatePage />} exact path="/professores/create" />
+
       </Routes>
   );
 }

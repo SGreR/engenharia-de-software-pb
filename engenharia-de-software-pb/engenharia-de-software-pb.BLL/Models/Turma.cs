@@ -10,6 +10,8 @@ namespace engenharia_de_software_pb.BLL.Models
     {
         public int Id { get; set; }
         public string Nome { get; set; }
+        public Professor? Professor { get; set; } = null;
+        public int? ProfessorId { get; set; } = null;
         public ICollection<Aluno> Alunos { get; set; } = new List<Aluno>();
     }
 }

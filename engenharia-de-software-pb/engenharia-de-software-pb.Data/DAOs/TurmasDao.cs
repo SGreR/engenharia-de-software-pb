@@ -67,13 +67,15 @@ namespace engenharia_de_software_pb.Data.DAOs
 
         public async Task<IEnumerable<Turma?>> GetByRelatedId(string type, int id)
         {
-            IQueryable<Turma> query = _context.Turmas
-                .Include(t => t.Alunos);
+            IQueryable<Turma> query = _context.Turmas;
 
             switch (type)
             {
                 case "aluno":
-                    query = query.Where(t => t.Alunos.Any(a => a.Id == id));
+                    query = query.Include(t => t.Alunos).Where(t => t.Alunos.Any(a => a.Id == id));
+                    break;
+                case "professores":
+                    query = query.Where(t => t.ProfessorId == id);
                     break;
                 default:
                     return Enumerable.Empty<Turma?>();

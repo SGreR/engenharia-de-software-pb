@@ -16,6 +16,9 @@ const DeleteConfirmationModal = ({ open, onCancel, onConfirm, itemType, itemId }
             case "Turmas":
                 link = "https://localhost:7215/api";
                 break;
+            case "Professores":
+                link = "https://localhost:7006/api";
+                break;
             default:
                 link = "";
                 break;

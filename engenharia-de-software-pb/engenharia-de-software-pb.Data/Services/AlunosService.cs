@@ -42,6 +42,25 @@ namespace engenharia_de_software_pb.Data.Services
             }
         }
 
+        public void AtualizarTurmas(Aluno alunoAntigo, Aluno novoAluno)
+        {
+            foreach (var turma in alunoAntigo.Turmas.ToList())
+            {
+                if (!novoAluno.Turmas.Any(t => t.Id == turma.Id))
+                {
+                    alunoAntigo.Turmas.Remove(turma);
+                }
+            }
+
+            foreach (var turma in novoAluno.Turmas)
+            {
+                if (!alunoAntigo.Turmas.Any(t => t.Id == turma.Id))
+                {
+                    alunoAntigo.Turmas.Add(turma);
+                }
+            }
+        }
+
         private async Task<ICollection<Aluno>> GetAlunos(IEnumerable<int> idList)
         {
             ICollection<Aluno> alunos = null;

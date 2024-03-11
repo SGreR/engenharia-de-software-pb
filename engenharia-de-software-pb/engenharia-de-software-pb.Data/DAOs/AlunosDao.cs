@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Migrations;
+using engenharia_de_software_pb.Data.Repositories;
+using engenharia_de_software_pb.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -14,10 +16,12 @@ namespace engenharia_de_software_pb.Data.DAOs
     public class AlunosDao : IDao<Aluno>
     {
         private readonly ApplicationDbContext _context;
+        private readonly AlunosService _alunosService;
 
-        public AlunosDao(ApplicationDbContext applicationDbContext)
+        public AlunosDao(ApplicationDbContext applicationDbContext, AlunosService alunosService)
         {
             _context = applicationDbContext;
+            _alunosService = alunosService;
         }
 
         public async Task<Aluno> Add(Aluno entity)

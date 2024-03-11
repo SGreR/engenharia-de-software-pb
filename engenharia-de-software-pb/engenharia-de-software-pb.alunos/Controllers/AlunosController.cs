@@ -74,10 +74,7 @@ namespace engenharia_de_software_pb.alunos.Controllers
 
             try
             {
-                var alunoAntigo = await _alunosRepository.GetById(id);
-                alunoAntigo.Name = aluno.Name;
-                AtualizarTurmas(alunoAntigo, aluno);
-                await _alunosRepository.Update(alunoAntigo);
+                await _alunosRepository.Update(aluno);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -112,25 +109,6 @@ namespace engenharia_de_software_pb.alunos.Controllers
         private bool AlunoExists(int id)
         {
             return _alunosRepository.GetById(id).Result != null;
-        }
-
-        private void AtualizarTurmas(Aluno alunoAntigo, Aluno novoAluno)
-        {
-            foreach(var turma in alunoAntigo.Turmas.ToList())
-            {
-                if(!novoAluno.Turmas.Any(t => t.Id == turma.Id))
-                {
-                    alunoAntigo.Turmas.Remove(turma);
-                }
-            }
-
-            foreach(var turma in novoAluno.Turmas)
-            {
-                if(!alunoAntigo.Turmas.Any(t => t.Id == turma.Id))
-                {
-                    alunoAntigo.Turmas.Add(turma);
-                }
-            }
         }
     }
 }

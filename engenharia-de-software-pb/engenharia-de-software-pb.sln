@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "engenharia-de-software-pb.a
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "engenharia-de-software-pb.notas", "engenharia-de-software-pb.notas\engenharia-de-software-pb.notas.csproj", "{95540924-59A5-4B46-BEA2-8C82A4E0502F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "engenharia-de-software-pb.turmas", "engenharia-de-software-pb.turmas\engenharia-de-software-pb.turmas.csproj", "{9B057F53-53D3-4A21-A5D7-9AF91FD876AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "engenharia-de-software-pb.turmas", "engenharia-de-software-pb.turmas\engenharia-de-software-pb.turmas.csproj", "{9B057F53-53D3-4A21-A5D7-9AF91FD876AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "engenharia-de-software-pb.professores", "engenharia-de-software-pb.professores\engenharia-de-software-pb.professores.csproj", "{CD2F4EC0-433C-47C0-A1EC-3E3F3F284A1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{9B057F53-53D3-4A21-A5D7-9AF91FD876AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B057F53-53D3-4A21-A5D7-9AF91FD876AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B057F53-53D3-4A21-A5D7-9AF91FD876AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD2F4EC0-433C-47C0-A1EC-3E3F3F284A1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD2F4EC0-433C-47C0-A1EC-3E3F3F284A1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD2F4EC0-433C-47C0-A1EC-3E3F3F284A1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD2F4EC0-433C-47C0-A1EC-3E3F3F284A1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -3,7 +3,6 @@ using engenharia_de_software_pb.Data;
 using engenharia_de_software_pb.Data.DAOs;
 using engenharia_de_software_pb.Data.Interfaces;
 using engenharia_de_software_pb.Data.Repositories;
-using engenharia_de_software_pb.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,9 +13,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
-builder.Services.AddScoped<IDao<Aluno>, AlunosDao>();
-builder.Services.AddScoped<IRepository<Aluno>, AlunoRepository>();
-builder.Services.AddScoped<AlunosService, AlunosService>();
+builder.Services.AddScoped<IDao<Professor>, ProfessoresDao>();
+builder.Services.AddScoped<IRepository<Professor>, ProfessorRepository>();
 
 builder.Services.AddCors(options =>
 {
