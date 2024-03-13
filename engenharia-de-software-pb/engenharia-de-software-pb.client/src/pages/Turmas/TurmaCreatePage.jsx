@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import TurmasEditDisplay from '@components/TurmasEditDisplay';
 
 const TurmaCreatePage = () => {
 
@@ -7,32 +8,9 @@ const TurmaCreatePage = () => {
         nome: '',
         ano: 0,
         semestre: 1,
-        professor: null,
         professorId: 0,
     });
-    const [professores, setProfessores] = useState([])
     const navigate = useNavigate();
-
-    useEffect(() => {
-        fetch("https://localhost:7006/api/Professores")
-            .then(response => response.json())
-            .then(data => {
-                if (data && Array.isArray(data.$values)) {
-                    setProfessores(data.$values);
-                } else {
-                    console.error("Invalid data structure received from API:", data);
-                }
-            })
-            .catch(error => console.error(error));
-    }, []);
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setTurmaData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
 
     const handleCreateTurma = () => {
         console.log(JSON.stringify(turmaData))
@@ -56,69 +34,22 @@ const TurmaCreatePage = () => {
             });
     };
 
+    const handleChange = (newTurma) => {
+        setTurmaData(newTurma);
+    }
+
     return (
         <div>
             <h2>Create Turma</h2>
             <form>
-                <div>
-                    <label>
-                        Nome:
-                        <input
-                            type="text"
-                            name="nome"
-                            value={turmaData.nome}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        Ano:
-                        <input
-                            type="number"
-                            name="ano"
-                            value={turmaData.ano}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <label>
-                        Semestre:
-                        <select
-                            value={turmaData.semestre}
-                            name="semestre"
-                            onChange={handleInputChange}
-                        >
-                            <option value={ 0 }>
-                                Selecione o Semestre:
-                            </option>
-                            <option value={ 1 }>
-                                Primeiro
-                            </option>
-                            <option value={ 2 }>
-                                Segundo
-                            </option>
-                        </select>
-                    </label>
-                    <select
-                        value={turmaData.professorId}
-                        name = "professorId"
-                        onChange={handleInputChange}
-                    >
-                        <option value="">
-                            Escolha um professor
-                        </option>
-                        {professores.map((professor) => (
-                            <option key={professor.id} value={professor.id}>
-                                {professor.name}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
+                <TurmasEditDisplay turma={turmaData} onChange={handleChange}/>
                 <div>
                     <button type="button" onClick={handleCreateTurma}>
                         Adicionar Turma
                     </button>
                 </div>
             </form>
+            
         </div>
     );
 }

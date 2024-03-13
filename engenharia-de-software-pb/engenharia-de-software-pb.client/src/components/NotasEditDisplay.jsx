@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function NotasDisplay({ notas, onChange }) {
+export default function NotasEditDisplay({ notas, onChange }) {
     const [students, setStudents] = useState([]);
     const [turmas, setTurmas] = useState([])
     const [grades, setGrades] = useState(notas);

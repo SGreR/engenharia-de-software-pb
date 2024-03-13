@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NotasList from '@components/NotasList';
 import AlunoList from '@components/AlunoList';
+import TurmasEditDisplay from '@components/TurmasEditDisplay';
 
 const TurmasDetailPage = () => {
 
@@ -17,7 +18,6 @@ const TurmasDetailPage = () => {
             alunos: []
         })
     const [alunos, setAlunos] = useState(null)
-    const [professores, setProfessores] = useState([])
     const [alunoSelecionado, setAlunoSelecionado] = useState([])
     const [notas, setNotas] = useState([])
     const [editing, setEditing] = useState(false);
@@ -78,30 +78,9 @@ const TurmasDetailPage = () => {
             .catch(error => console.log(error));
     }, [id])
 
-    useEffect(() => {
-        fetch("https://localhost:7006/api/Professores")
-            .then(response => response.json())
-            .then(data => {
-                if (data && Array.isArray(data.$values)) {
-                    setProfessores(data.$values);
-                } else {
-                    console.error("Invalid data structure received from API:", data);
-                }
-            })
-            .catch(error => console.error(error));
-    }, [id]);
-
     const toggleEditing = () => {
         setEditing(!editing)
     }
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setTurma((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
-    };
 
     const putTurma = () => {
         fetch(`https://localhost:7215/api/Turmas/${id}`, {
@@ -154,6 +133,10 @@ const TurmasDetailPage = () => {
         }
     }
 
+    const handleChange = (newTurma) => {
+        setTurma(newTurma);
+    }
+
     return (
         <div>
 
@@ -168,56 +151,7 @@ const TurmasDetailPage = () => {
                     <div>
                         <h2>{turma.nome}</h2>
                         <button onClick={toggleEditing}>Toggle Edit</button>
-                        {editing ? (
-                            <div>
-                                <label>
-                                    Nome:
-                                    <input
-                                        type="text"
-                                        name="nome"
-                                        value={turma.nome}
-                                        onChange={handleInputChange}
-                                    />
-                                </label>
-                                <label>
-                                    Ano:
-                                    <input
-                                        type="number"
-                                        name="ano"
-                                        value={turma.ano}
-                                        onChange={handleInputChange}
-                                    />
-                                </label>
-                                <select
-                                    value={turma.semestre}
-                                    name="semestre"
-                                    onChange={handleInputChange}
-                                >
-                                    <option value={0}>
-                                        Selecione o Semestre:
-                                    </option>
-                                    <option value={1}>
-                                        Primeiro
-                                    </option>
-                                    <option value={2}>
-                                        Segundo
-                                    </option>
-                                </select>
-                                <select
-                                    value={turma.professorId}
-                                    name="professorId"
-                                    onChange={handleInputChange}
-                                >
-                                    <option value="">
-                                        Escolha um professor
-                                    </option>
-                                    {professores.map((professor) => (
-                                        <option key={professor.id} value={professor.id}>
-                                            {professor.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                        {editing ? (<TurmasEditDisplay turma={turma} onChange={handleChange} />
                         ) : (
                             <div>
                                 <p>Turma: {turma.nome}</p>
