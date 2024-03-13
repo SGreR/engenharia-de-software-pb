@@ -53,6 +53,8 @@ export default function TurmasList({ turmasList }) {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Turma</TableCell>
+                        <TableCell>Ano</TableCell>
+                        <TableCell>Semestre</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -68,6 +70,8 @@ export default function TurmasList({ turmasList }) {
                             <TableRow key={turma.id}>
                                 <TableCell>{turma.id}</TableCell>
                                 <TableCell>{turma.nome}</TableCell>
+                                <TableCell>{turma.ano}</TableCell>
+                                <TableCell>{turma.semestre}</TableCell>
                                 <TableCell>
                                     <IconButton onClick={() => handleEditClick(turma.id)} color="primary">
                                         <EditIcon />

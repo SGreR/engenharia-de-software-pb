@@ -61,6 +61,10 @@ namespace engenharia_de_software_pb.Data.DAOs
                 .Include(n => n.Grammar)
                 .Include(n => n.Speaking)
                 .Include(n => n.ClassPerformance)
+                .OrderByDescending(n => n.Turma.Ano)
+                .ThenByDescending(n => n.Turma)
+                .ThenByDescending(n => n.Aluno)
+                .ThenByDescending(n => n.NumeroTeste)
                 .ToListAsync();
         }
 

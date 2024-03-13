@@ -85,6 +85,7 @@ export default function NotasList({ studentName = null, notasList }) {
                     <TableCell>ID</TableCell>
                     <TableCell>Aluno</TableCell>
                     <TableCell>Turma</TableCell>
+                    <TableCell>Semestre</TableCell>
                     <TableCell>Teste</TableCell>
                     <TableCell>Reading</TableCell>
                     <TableCell>Writing</TableCell>
@@ -109,6 +110,7 @@ export default function NotasList({ studentName = null, notasList }) {
                             <TableCell>{nota.id}</TableCell>
                             <TableCell>{studentName === null ? nota.aluno.name : studentName}</TableCell>
                             <TableCell>{nota.turma.nome}</TableCell>
+                            <TableCell>{nota.turma.ano}-{nota.turma.semestre}</TableCell>
                             <TableCell>{nota.numeroTeste}</TableCell>
                             <TableCell>{nota.reading.media}</TableCell>
                             <TableCell>{nota.writing.media}</TableCell>

@@ -10,7 +10,7 @@ namespace engenharia_de_software_pb.BLL.Models
     public class Aluno
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public ICollection<Turma> Turmas { get; set; } = new List<Turma>();
 
     }

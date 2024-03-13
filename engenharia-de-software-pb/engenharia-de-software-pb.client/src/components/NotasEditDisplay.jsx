@@ -4,7 +4,6 @@ export default function NotasDisplay({ notas, onChange }) {
     const [students, setStudents] = useState([]);
     const [turmas, setTurmas] = useState([])
     const [grades, setGrades] = useState(notas);
-    const [name, setName] = useState("")
 
     useEffect(() => {
         onChange(grades)
@@ -17,20 +16,27 @@ export default function NotasDisplay({ notas, onChange }) {
             .catch((error) => console.error('Erro coletando alunos:', error));
     }, []);
 
-    const handleStudentChange = (value, name) => {
-        setName(name)
-        setGrades((prevData) => ({
-            ...prevData,
-            ['alunoId']: value
-        }));
-    }
+    useEffect(() => {
+        fetch("https://localhost:7215/api/Turmas")
+            .then(response => response.json())
+            .then(data => {
+                if (data && Array.isArray(data.$values)) {
+                    setTurmas(data.$values);
+                } else {
+                    console.error("Invalid data structure received from API:", data);
+                }
+            })
+            .catch(error => console.error(error));
+    }, []);
 
-    const handleClassChange = (value) => {
+    const handleSelectChange = (e) => {
+        const { name, value } = e.target;
+        const parsedValue = parseInt(value, 10)
         setGrades((prevData) => ({
             ...prevData,
-            ['turmaId']: value
+            [name]: parsedValue,
         }));
-    }
+    };
 
     const handleInputChange = (section, property, value) => {
         const rawValue = value.replace(',', '.');
@@ -110,7 +116,8 @@ export default function NotasDisplay({ notas, onChange }) {
                     Selecione o aluno:
                     <select
                         value={grades.alunoId}
-                        onChange={(e) => handleStudentChange(e.target.value)}
+                        name = "alunoId"
+                        onChange={handleSelectChange}
                     >
                         <option value="">
                             Escolha um aluno
@@ -126,16 +133,33 @@ export default function NotasDisplay({ notas, onChange }) {
                     Selecione a turma:
                     <select
                         value={grades.turmaId}
-                        onChange={(e) => handleClassChange(e.target.value)}
+                        name = "turmaId"
+                        onChange={handleSelectChange}
                     >
                         <option value="">
                             Escolha uma turma
                         </option>
                         {turmas.map((turma) => (
                             <option key={turma.id} value={turma.id}>
-                                {turma.name}
+                                {turma.nome}
                             </option>
                         ))}
+                    </select>
+                </label>
+                <label>
+                    Selecione o teste:
+                    <select
+                        value={grades.numeroTeste}
+                        name = "numeroTeste"
+                        onChange={handleSelectChange}
+                    >
+                        <option value={1}>
+                            Primeiro
+                        </option>
+                        <option value={2}>
+                            Segundo
+                        </option>
+                        
                     </select>
                 </label>
             </div>

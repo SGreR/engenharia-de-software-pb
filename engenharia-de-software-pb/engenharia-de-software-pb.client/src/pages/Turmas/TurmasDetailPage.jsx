@@ -7,12 +7,17 @@ const TurmasDetailPage = () => {
 
     const [turma, setTurma] = useState(
         {
-            "$id": 0,
-            "id": 0,
-            "nome": "",
-            "alunos": []
+            $id: 0,
+            id: 0,
+            nome: "",
+            ano: 0,
+            semestre: 1,
+            professorId: 0,
+            professor: null,
+            alunos: []
         })
     const [alunos, setAlunos] = useState(null)
+    const [professores, setProfessores] = useState([])
     const [alunoSelecionado, setAlunoSelecionado] = useState([])
     const [notas, setNotas] = useState([])
     const [editing, setEditing] = useState(false);
@@ -25,14 +30,19 @@ const TurmasDetailPage = () => {
             .then(data => {
                 var novaTurma =
                 {
-                    "$id": data.$id,
-                    "id": data.id,
-                    "nome": data.nome,
-                    "alunos": data.alunos.$values.map(aluno => {
+                    $id: data.$id,
+                    id: data.id,
+                    nome: data.nome,
+                    ano: data.ano,
+                    semestre: data.semestre,
+                    professorId: data.professorId,
+                    professor: data.professor,
+                    alunos: data.alunos.$values.map(aluno => {
                         const { $id, ...rest } = aluno;
                         return rest;
                     })
                 }
+                console.log(novaTurma)
                 setTurma(novaTurma)
             })
             .catch(error => console.error(error));
@@ -66,21 +76,34 @@ const TurmasDetailPage = () => {
                 }
             })
             .catch(error => console.log(error));
-    }, [])
+    }, [id])
+
+    useEffect(() => {
+        fetch("https://localhost:7006/api/Professores")
+            .then(response => response.json())
+            .then(data => {
+                if (data && Array.isArray(data.$values)) {
+                    setProfessores(data.$values);
+                } else {
+                    console.error("Invalid data structure received from API:", data);
+                }
+            })
+            .catch(error => console.error(error));
+    }, [id]);
 
     const toggleEditing = () => {
         setEditing(!editing)
     }
 
-    const handleInputChange = (value) => {
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
         setTurma((prevData) => ({
             ...prevData,
-            ['nome']: value
-        }))
-    }
+            [name]: value,
+        }));
+    };
 
     const putTurma = () => {
-        var turmaJson = JSON.stringify(turma)
         fetch(`https://localhost:7215/api/Turmas/${id}`, {
             method: 'PUT',
             headers: {
@@ -143,7 +166,7 @@ const TurmasDetailPage = () => {
                 )
                 : (
                     <div>
-                        <h2>{turma.name}</h2>
+                        <h2>{turma.nome}</h2>
                         <button onClick={toggleEditing}>Toggle Edit</button>
                         {editing ? (
                             <div>
@@ -151,16 +174,55 @@ const TurmasDetailPage = () => {
                                     Nome:
                                     <input
                                         type="text"
+                                        name="nome"
                                         value={turma.nome}
-                                        onChange={(e) =>
-                                            handleInputChange(e.target.value)
-                                        }
+                                        onChange={handleInputChange}
                                     />
                                 </label>
+                                <label>
+                                    Ano:
+                                    <input
+                                        type="number"
+                                        name="ano"
+                                        value={turma.ano}
+                                        onChange={handleInputChange}
+                                    />
+                                </label>
+                                <select
+                                    value={turma.semestre}
+                                    name="semestre"
+                                    onChange={handleInputChange}
+                                >
+                                    <option value={0}>
+                                        Selecione o Semestre:
+                                    </option>
+                                    <option value={1}>
+                                        Primeiro
+                                    </option>
+                                    <option value={2}>
+                                        Segundo
+                                    </option>
+                                </select>
+                                <select
+                                    value={turma.professorId}
+                                    name="professorId"
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="">
+                                        Escolha um professor
+                                    </option>
+                                    {professores.map((professor) => (
+                                        <option key={professor.id} value={professor.id}>
+                                            {professor.name}
+                                        </option>
+                                    ))}
+                                </select>
                             </div>
                         ) : (
                             <div>
-                                <p>Nome: {turma.nome}</p>
+                                <p>Turma: {turma.nome}</p>
+                                <p>Semestre: {turma.ano}-{turma.semestre}</p>
+                                <p>Professor: {turma.professor == null ? "" : turma.professor.name}</p>
                             </div>
                         )}
                         {editing ? (

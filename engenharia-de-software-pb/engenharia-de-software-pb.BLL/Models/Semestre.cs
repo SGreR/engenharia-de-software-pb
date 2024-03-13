@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace engenharia_de_software_pb.BLL.Models
 {
-    public class Professor
+    public enum Semestre
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        Primeiro = 1,
+        Segundo = 2
     }
 }

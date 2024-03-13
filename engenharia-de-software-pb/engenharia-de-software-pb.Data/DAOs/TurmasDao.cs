@@ -55,6 +55,8 @@ namespace engenharia_de_software_pb.Data.DAOs
         public async Task<IEnumerable<Turma>> GetAll()
         {
             return await _context.Turmas
+                .OrderByDescending(t => t.Ano)
+                .ThenByDescending(t => t.Semestre)
                 .ToListAsync();
         }
 
@@ -62,6 +64,7 @@ namespace engenharia_de_software_pb.Data.DAOs
         {
             return await _context.Turmas
                 .Include(t => t.Alunos)
+                .Include(t => t.Professor)
                 .FirstOrDefaultAsync(n => n.Id == id);
         }
 
