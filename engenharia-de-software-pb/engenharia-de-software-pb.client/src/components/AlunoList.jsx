@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import RemoveIcon from '@mui/icons-material/Remove';
+
 import {
     TableHead,
     TableBody,
@@ -14,7 +16,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import DeleteConfirmationModal from './DeleteConfirmationModal';
 
-export default function AlunoList({ alunosList }) {
+export default function AlunoList({ turma = false, alunosList, handleRemove }) {
     const [alunos, setAlunos] = useState(alunosList)
     const [loading, setLoading] = useState(true);
     const [deleteConfirmationOpen, setDeleteConfirmationOpen] = useState(false);
@@ -51,6 +53,8 @@ export default function AlunoList({ alunosList }) {
                     <TableRow>
                         <TableCell>ID</TableCell>
                         <TableCell>Name</TableCell>
+                        <TableCell></TableCell>
+                        {turma ? (<TableCell>Remover da Turma</TableCell>) : (<></>) }
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -74,6 +78,15 @@ export default function AlunoList({ alunosList }) {
                                         <DeleteIcon />
                                     </IconButton>
                                 </TableCell>
+                                {turma ? (
+                                    <TableCell>
+                                        <IconButton onClick={() => handleRemove(aluno.id)} color="error">
+                                            <RemoveIcon />
+                                        </IconButton>
+                                    </TableCell>
+                                ) : (
+                                    <></>
+                                ) }
                             </TableRow>
                         ))
                     )}

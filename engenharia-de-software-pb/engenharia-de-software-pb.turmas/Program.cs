@@ -16,7 +16,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IDao<Turma>, TurmasDao>();
 builder.Services.AddScoped<IRepository<Turma>, TurmasRepository>();
-builder.Services.AddScoped<AlunosService>();
+builder.Services.AddScoped<TurmasService>();
 
 builder.Services.AddCors(options =>
 {

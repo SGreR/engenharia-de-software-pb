@@ -7,19 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 using engenharia_de_software_pb.Data.Interfaces;
 using Microsoft.AspNetCore.Http;
 using engenharia_de_software_pb.turmas.Controllers;
+using engenharia_de_software_pb.Data.Services;
 
 namespace engenharia_de_software_pb.Tests.Controllers
 {
     public class TurmasControllerTests
     {
         private readonly TurmasController _turmasController;
+        private readonly TurmasService _turmasService;
         private readonly Mock<IRepository<Turma>> _mockRepository;
 
         public TurmasControllerTests()
         {
 
             _mockRepository = new Mock<IRepository<Turma>>();
-            _turmasController = new TurmasController(_mockRepository.Object);
+            _turmasController = new TurmasController(_mockRepository.Object, _turmasService);
 
         }
 

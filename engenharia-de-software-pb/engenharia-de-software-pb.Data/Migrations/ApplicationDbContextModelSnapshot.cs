@@ -34,7 +34,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("TurmasId");
 
-                    b.ToTable("AlunoTurma");
+                    b.ToTable("AlunoTurma", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Aluno", b =>
@@ -51,7 +51,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Alunos");
+                    b.ToTable("Alunos", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.ClassPerformance", b =>
@@ -82,7 +82,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("ClassPerformances");
+                    b.ToTable("ClassPerformances", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Grammar", b =>
@@ -107,7 +107,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Grammars");
+                    b.ToTable("Grammars", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Listening", b =>
@@ -132,7 +132,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Listenings");
+                    b.ToTable("Listenings", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Notas", b =>
@@ -158,7 +158,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("TurmaId");
 
-                    b.ToTable("Notas");
+                    b.ToTable("Notas", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Professor", b =>
@@ -175,7 +175,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Professores");
+                    b.ToTable("Professores", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Reading", b =>
@@ -200,7 +200,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Readings");
+                    b.ToTable("Readings", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Speaking", b =>
@@ -234,7 +234,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Speakings");
+                    b.ToTable("Speakings", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Turma", b =>
@@ -262,7 +262,7 @@ namespace engenharia_de_software_pb.Data.Migrations
 
                     b.HasIndex("ProfessorId");
 
-                    b.ToTable("Turmas");
+                    b.ToTable("Turmas", (string)null);
                 });
 
             modelBuilder.Entity("engenharia_de_software_pb.BLL.Models.Writing", b =>
@@ -287,7 +287,7 @@ namespace engenharia_de_software_pb.Data.Migrations
                     b.HasIndex("NotasId")
                         .IsUnique();
 
-                    b.ToTable("Writings");
+                    b.ToTable("Writings", (string)null);
                 });
 
             modelBuilder.Entity("AlunoTurma", b =>

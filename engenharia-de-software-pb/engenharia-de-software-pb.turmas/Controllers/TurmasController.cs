@@ -15,10 +15,12 @@ namespace engenharia_de_software_pb.turmas.Controllers
     public class TurmasController : Controller
     {
         private readonly IRepository<Turma> _turmasRepository;
+        private readonly TurmasService _turmasService;
 
-        public TurmasController(IRepository<Turma> turmasRepository)
+        public TurmasController(IRepository<Turma> turmasRepository, TurmasService turmasService)
         {
             _turmasRepository = turmasRepository;
+            _turmasService = turmasService;
         }
 
         // GET: api/Turmas
@@ -71,11 +73,6 @@ namespace engenharia_de_software_pb.turmas.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTurmas(int id, Turma turma)
         {
-            if (id != turma.Id)
-            {
-                return BadRequest();
-            }
-
             try
             {
                 await _turmasRepository.Update(turma);

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using engenharia_de_software_pb.BLL.Models;
 using engenharia_de_software_pb.Data.Interfaces;
+using engenharia_de_software_pb.Data.Migrations;
+using engenharia_de_software_pb.Data.Repositories;
 using engenharia_de_software_pb.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -14,12 +16,12 @@ namespace engenharia_de_software_pb.Data.DAOs
     public class TurmasDao : IDao<Turma>
     {
         private readonly ApplicationDbContext _context;
-        private readonly AlunosService _alunosService;
+        private readonly TurmasService _turmasService;
 
-        public TurmasDao(ApplicationDbContext applicationDbContext, AlunosService alunosService)
+        public TurmasDao(ApplicationDbContext applicationDbContext, TurmasService turmasService)
         {
             _context = applicationDbContext;
-            _alunosService = alunosService;
+            _turmasService = turmasService;
         }
 
         public async Task<Turma> Add(Turma entity)
@@ -95,35 +97,19 @@ namespace engenharia_de_software_pb.Data.DAOs
         public async Task<Turma> Update(Turma entity)
         {
             var tracker = _context.ChangeTracker.Entries();
-            var id = entity.Id;
-            var turmaAntiga = await _context.Turmas.AsNoTracking().Include(t => t.Alunos).FirstOrDefaultAsync(t => t.Id == id);
+            var turmaAntiga = await _context.Turmas
+                .AsNoTracking()
+                .Include(t => t.Alunos)
+                .Include(t => t.Professor)
+                .FirstOrDefaultAsync(t => t.Id == entity.Id);
 
             try
             {
                 _context.Update(entity);
                 tracker = _context.ChangeTracker.Entries();
-                foreach(var entry in tracker)
-                {
-                    if(entry.Entity is Aluno aluno)
-                    {
-                        if (turmaAntiga.Alunos.Any(a => a.Id == aluno.Id))
-                        {
-                            entry.State = EntityState.Detached;
-                        }
-                    }
-
-                    if(entry.Entity is Dictionary<string,object> dictionary)
-                    {
-                        var alunoId = dictionary["AlunosId"];
-                        var turmaId = dictionary["TurmasId"];
-                        if (turmaAntiga.Alunos.Any(aluno => aluno.Id.ToString() == dictionary["AlunosId"].ToString()) && turmaAntiga.Id.ToString() == dictionary["TurmasId"].ToString())
-                        {
-                            entry.State = EntityState.Detached;
-                        }
-                    }
-                }
-                tracker = _context.ChangeTracker.Entries();
+                _turmasService.AtualizarTurma(_context, entity, turmaAntiga);
                 await _context.SaveChangesAsync();
+                tracker = _context.ChangeTracker.Entries();
             }
             catch (Exception ex)
             {

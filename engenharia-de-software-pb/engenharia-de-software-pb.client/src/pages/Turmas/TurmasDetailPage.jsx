@@ -133,6 +133,20 @@ const TurmasDetailPage = () => {
         }
     }
 
+    const removeStudent = (alunoId) => {
+        const studentIndex = turma.alunos.findIndex(aluno => aluno.id === alunoId);
+        if (studentIndex !== -1) {
+            const updatedAlunos = [
+                ...turma.alunos.slice(0, studentIndex),
+                ...turma.alunos.slice(studentIndex + 1)
+            ];
+            setTurma(prevTurma => ({
+                ...prevTurma,
+                alunos: updatedAlunos
+            }));
+        }
+    }
+
     const handleChange = (newTurma) => {
         setTurma(newTurma);
     }
@@ -166,7 +180,7 @@ const TurmasDetailPage = () => {
                             </>
                         )}
                         <h2>Alunos</h2>
-                        { alunos == null ? <></> : <button onClick={toggleAdicionarAluno}>Adicionar aluno</button>}
+                        { alunos == null ? <></> : <button onClick={toggleAdicionarAluno}>Editar alunos</button>}
                         {adding ?
                             (
                                 <div>
@@ -198,7 +212,7 @@ const TurmasDetailPage = () => {
                             ) : (
                                 <></>
                             )}
-                        <AlunoList alunosList={turma.alunos} />
+                        <AlunoList turma={adding} alunosList={turma.alunos} handleRemove={removeStudent} />
                         <hr></hr>
                         <h2>Notas</h2>
                         <NotasList notasList={notas} />
