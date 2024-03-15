@@ -28,7 +28,7 @@ export default function TurmasListPage() {
 
     return (
         <div>
-            <h1>Notas</h1>
+            <h1>Turmas</h1>
             <IconButton onClick={() => handleClick()} color="primary">
                 <AddIcon /> Adicionar Turmas
             </IconButton>

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import {
     TableHead,
     TableBody,
@@ -50,7 +51,8 @@ export default function ProfessorList({ professoresList }) {
                 <TableHead>
                     <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
+                        <TableCell>Nome</TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -67,6 +69,9 @@ export default function ProfessorList({ professoresList }) {
                                 <TableCell>{professor.id}</TableCell>
                                 <TableCell>{professor.name}</TableCell>
                                 <TableCell>
+                                    <IconButton onClick={() => handleEditClick(professor.id)} color="primary">
+                                        <PreviewIcon />
+                                    </IconButton>
                                     <IconButton onClick={() => handleEditClick(professor.id)} color="primary">
                                         <EditIcon />
                                     </IconButton>

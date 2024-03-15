@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import NotasList from '@components/NotasList';
 import AlunoList from '@components/AlunoList';
 import TurmasEditDisplay from '@components/TurmasEditDisplay';
+import ClassGradesChart from '../../components/ClassGradesChart';
 
 const TurmasDetailPage = () => {
 
@@ -216,6 +217,16 @@ const TurmasDetailPage = () => {
                         <hr></hr>
                         <h2>Notas</h2>
                         <NotasList notasList={notas} />
+                        {notas.length == 0 ?
+                            (
+                                <h2>Loading...</h2>
+                            ) : (
+                                <div>
+                                    <h2>Estatisticas</h2>
+                                    <ClassGradesChart notasList={notas} />
+                                </div>
+                            )
+                        }
                         
                     </div>
                 )}

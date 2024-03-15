@@ -3,6 +3,7 @@ import React from 'react';
 import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import {
     TableHead,
     TableBody,
@@ -55,6 +56,7 @@ export default function TurmasList({ turmasList }) {
                         <TableCell>Turma</TableCell>
                         <TableCell>Ano</TableCell>
                         <TableCell>Semestre</TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -73,6 +75,9 @@ export default function TurmasList({ turmasList }) {
                                 <TableCell>{turma.ano}</TableCell>
                                 <TableCell>{turma.semestre}</TableCell>
                                 <TableCell>
+                                    <IconButton onClick={() => handleEditClick(turma.id)} color="primary">
+                                        <PreviewIcon />
+                                    </IconButton>
                                     <IconButton onClick={() => handleEditClick(turma.id)} color="primary">
                                         <EditIcon />
                                     </IconButton>

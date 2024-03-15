@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NotasList from '@components/NotasList';
+import StudentGradesChart from '@components/StudentGradesChart'
 
 function AlunoDetailPage() {
     const [aluno, setAluno] = useState(null)
@@ -96,7 +97,17 @@ function AlunoDetailPage() {
                     )}
                     <NotasList studentName={ aluno.name } notasList={ notas }/>
                 </div>
-            )}
+                )}
+            {notas.length == 0 ?
+                (
+                    <h2>Loading...</h2>
+                ) : (
+                    <div>
+                        <h2>Estatisticas</h2>
+                        <StudentGradesChart notasList={notas} />
+                    </div>
+                )
+            }
         </div>
     );
 }

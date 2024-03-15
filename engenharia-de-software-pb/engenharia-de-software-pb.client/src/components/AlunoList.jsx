@@ -4,6 +4,7 @@ import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import RemoveIcon from '@mui/icons-material/Remove';
+import PreviewIcon from '@mui/icons-material/Preview';
 
 import {
     TableHead,
@@ -52,7 +53,7 @@ export default function AlunoList({ turma = false, alunosList, handleRemove }) {
                 <TableHead>
                     <TableRow>
                         <TableCell>ID</TableCell>
-                        <TableCell>Name</TableCell>
+                        <TableCell>Nome</TableCell>
                         <TableCell></TableCell>
                         {turma ? (<TableCell>Remover da Turma</TableCell>) : (<></>) }
                     </TableRow>
@@ -71,6 +72,9 @@ export default function AlunoList({ turma = false, alunosList, handleRemove }) {
                                 <TableCell>{aluno.id}</TableCell>
                                 <TableCell>{aluno.name}</TableCell>
                                 <TableCell>
+                                    <IconButton onClick={() => handleEditClick(aluno.id)} color="primary">
+                                        <PreviewIcon />
+                                    </IconButton>
                                     <IconButton onClick={() => handleEditClick(aluno.id)} color="primary">
                                         <EditIcon />
                                     </IconButton>

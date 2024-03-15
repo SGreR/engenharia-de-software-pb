@@ -10,7 +10,7 @@ export default function NotasDetailPage() {
     const { id } = useParams();
 
     useEffect(() => {
-        fetch(`https://localhost:7215/api/Notas/${id}`)
+        fetch(`https://localhost:7128/api/Notas/${id}`)
             .then(response => response.json())
             .then(data => setNotas(data))
             .catch(error => console.error(error));
@@ -53,8 +53,15 @@ export default function NotasDetailPage() {
                     <p>Aluno: {notas.aluno.name}</p>
                     <p>Teste: {notas.numeroTeste}</p>
                     {editing ? <button onClick={toggleEditing}>Cancelar</button> : <button onClick={toggleEditing}>Editar</button>}
-                    {editing ? <NotasEditDisplay onChange={handleChange} id={id} notas={notas} /> : <NotasDisplay id={id} notas={notas} />}
-                    <button onClick={putGrades}>Salvar</button>
+                        {editing ? (
+                            <>
+                                <NotasEditDisplay onChange={handleChange} id={id} notas={notas} />
+                                <button onClick={putGrades}>Salvar</button>
+                            </>
+                            
+                        ) : (
+                            <NotasDisplay id={id} notas={notas} />
+                        )}
                 </div>
             )}
         </div>

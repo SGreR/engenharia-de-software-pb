@@ -3,6 +3,7 @@ import React from 'react';
 import Table from '@mui/joy/Table';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import PreviewIcon from '@mui/icons-material/Preview';
 import {
     TableHead,
     TableBody,
@@ -94,6 +95,7 @@ export default function NotasList({ studentName = null, notasList }) {
                     <TableCell>Speaking</TableCell>
                     <TableCell>Class Performance</TableCell>
                     <TableCell>Media Final</TableCell>
+                    <TableCell></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -119,7 +121,10 @@ export default function NotasList({ studentName = null, notasList }) {
                             <TableCell>{nota.speaking.media}</TableCell>
                             <TableCell>{nota.classPerformance.media}</TableCell>
                             <TableCell>{nota.mediaFinal}%</TableCell>
-                            <TableCell>
+                                <TableCell>
+                                <IconButton onClick={() => handleEditClick(nota.id)} color="primary">
+                                    <PreviewIcon />
+                                </IconButton>
                                 <IconButton onClick={() => handleEditClick(nota.id)} color="primary">
                                     <EditIcon />
                                 </IconButton>
